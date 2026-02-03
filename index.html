@@ -58,7 +58,6 @@
     position: relative;
   }
 
-  /* floating petals */
   .petal {
     position:absolute; opacity:.25; pointer-events:none;
     font-size:1.8rem; animation: drift 8s ease-in-out infinite;
@@ -76,7 +75,6 @@
     70% { transform: translateY(10px) rotate(-5deg); }
   }
 
-  /* ambient glow */
   .hero::before {
     content:''; position:absolute;
     width:520px; height:520px; border-radius:50%;
@@ -105,9 +103,7 @@
     position:relative; z-index:1;
     max-width: 720px;
   }
-  .hero h1 em {
-    font-style:italic; color: var(--rose);
-  }
+  .hero h1 em { font-style:italic; color: var(--rose); }
   .hero h1 .gold { color: var(--gold); font-style:italic; }
 
   .hero-sub {
@@ -117,9 +113,7 @@
     font-weight:300;
   }
 
-  .hero-cta {
-    margin-top: 2.6rem; position:relative; z-index:1;
-  }
+  .hero-cta { margin-top: 2.6rem; position:relative; z-index:1; }
   .btn-primary {
     display:inline-flex; align-items:center; gap:.5rem;
     background: var(--rose); color:#fff;
@@ -142,7 +136,7 @@
     position:relative; z-index:1;
   }
 
-  /* ─── HOW IT WORKS ─── */
+  /* ─── SECTIONS ─── */
   .section { padding: 7rem 1.5rem; }
   .section-label {
     text-align:center;
@@ -161,6 +155,7 @@
     font-weight:300;
   }
 
+  /* ─── HOW IT WORKS ─── */
   .steps {
     display:flex; justify-content:center; flex-wrap:wrap; gap:2rem;
     max-width:960px; margin:3.6rem auto 0;
@@ -180,8 +175,6 @@
   }
   .step h3 { font-size:1.05rem; font-weight:600; margin-bottom:.5rem; }
   .step p { font-size:.88rem; color:rgba(44,36,32,.55); line-height:1.55; font-weight:300; }
-
-  /* connector dots */
   .step:not(:last-child)::after {
     content:'···';
     position:absolute; right:-1rem; top:1.8rem;
@@ -207,19 +200,13 @@
   }
   .price-tag sup { font-size:1.6rem; vertical-align:super; }
   .price-tag sub { font-size:.95rem; font-weight:400; color:rgba(44,36,32,.45); vertical-align:baseline; }
-  .price-perks {
-    margin: 1.4rem 0 2rem;
-    list-style:none;
-  }
+  .price-perks { margin: 1.4rem 0 2rem; list-style:none; }
   .price-perks li {
-    padding:.38rem 0; font-size:.92rem; color:rgba(44,36,32,.6);
-    font-weight:300;
+    padding:.38rem 0; font-size:.92rem; color:rgba(44,36,32,.6); font-weight:300;
   }
-  .price-perks li::before {
-    content:'✓ '; color:var(--rose); font-weight:600;
-  }
+  .price-perks li::before { content:'✓ '; color:var(--rose); font-weight:600; }
 
-  /* ─── STYLE PICKER GRID ─── */
+  /* ─── STYLE PICKER ─── */
   .style-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -243,10 +230,8 @@
     border-color: var(--rose);
     box-shadow: 0 4px 22px rgba(199,91,106,.18);
   }
-
-  /* check badge */
   .style-check {
-    display:none; position:absolute; top:10px; right:10px;
+    position:absolute; top:10px; right:10px;
     width:24px; height:24px; border-radius:50%;
     background:var(--rose); color:#fff;
     font-size:.75rem; display:none;
@@ -255,7 +240,6 @@
   }
   .style-card.active .style-check { display:flex; }
 
-  /* preview box */
   .style-preview {
     height:130px; display:flex; flex-direction:column;
     align-items:center; justify-content:center;
@@ -266,25 +250,18 @@
     font-weight:300; text-align:center; line-height:1.4;
   }
 
-  /* ── Midnight preview ── */
-  .sp-midnight {
-    background: linear-gradient(160deg, #0e0a0d 0%, #1a1218 100%);
-  }
-  .sp-stars {
-    position:absolute; inset:0; pointer-events:none;
-  }
+  /* Midnight */
+  .sp-midnight { background: linear-gradient(160deg, #0e0a0d 0%, #1a1218 100%); }
   .sp-midnight .sp-txt { color:rgba(245,239,232,.7); }
   .sp-env { font-size:1.6rem; margin-bottom:.4rem; position:relative; z-index:1; filter:drop-shadow(0 0 6px rgba(212,116,122,.5)); }
 
-  /* ── Parisian preview ── */
-  .sp-parisian {
-    background: linear-gradient(150deg, #faf6f0 0%, #f0e6df 100%);
-  }
+  /* Parisian */
+  .sp-parisian { background: linear-gradient(150deg, #faf6f0 0%, #f0e6df 100%); }
   .sp-parisian .sp-txt { color:rgba(59,47,42,.6); }
   .sp-petals { font-size:1rem; opacity:.6; margin-bottom:.3rem; position:relative; z-index:1; letter-spacing:4px; }
   .sp-card-icon { font-size:1.4rem; position:relative; z-index:1; }
 
-  /* ── Retro preview ── */
+  /* Retro */
   .sp-retro {
     background: #fef5e0;
     background-image: radial-gradient(circle, rgba(212,43,43,.07) 1px, transparent 1px);
@@ -293,7 +270,7 @@
   .sp-heart-big { font-size:2rem; color:#d42b2b; position:relative; z-index:1; filter:drop-shadow(2px 2px 0 rgba(26,39,68,.2)); }
   .sp-retro-txt { color:#2a1810; font-weight:700; font-size:.72rem!important; letter-spacing:2px; text-transform:uppercase; }
 
-  /* ── Typewriter preview ── */
+  /* Typewriter */
   .sp-typewriter {
     background: #f0ebe3;
     background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 18px, rgba(44,35,25,.06) 18px, rgba(44,35,25,.06) 19px);
@@ -302,10 +279,8 @@
   .sp-date { font-size:.66rem; color:rgba(44,35,25,.4); font-style:italic; margin-bottom:.4rem; }
   .sp-tw-txt { color:#2c2319; font-size:.8rem!important; font-family:'Special Elite',cursive; text-align:left!important; line-height:1.6; }
 
-  /* ── Constellation preview ── */
-  .sp-constellation {
-    background: linear-gradient(160deg, #07101e 0%, #0d1b30 100%);
-  }
+  /* Constellation */
+  .sp-constellation { background: linear-gradient(160deg, #07101e 0%, #0d1b30 100%); }
   .sp-const-stars { position:absolute; inset:0; pointer-events:none; }
   .sp-cs { position:absolute; color:#d4a94c; }
   .sp-cs-1 { top:22%; left:28%; font-size:.8rem; opacity:.8; }
@@ -314,16 +289,11 @@
   .sp-cs-4 { top:20%; right:22%; font-size:.75rem; opacity:.75; }
   .sp-const-txt { color:rgba(168,184,200,.7); font-size:.76rem!important; letter-spacing:2px; text-transform:uppercase; position:relative; z-index:1; }
 
-  /* info */
   .style-info { padding:1rem 1.1rem 1.1rem; }
   .style-info h4 { font-size:.9rem; font-weight:600; margin-bottom:.25rem; color:var(--ink); }
   .style-info p { font-size:.78rem; color:rgba(44,36,32,.5); line-height:1.45; font-weight:300; }
 
-  @media(max-width:540px){
-    .style-grid { grid-template-columns:1fr; max-width:380px; }
-  }
-
-  /* ─── STYLE PICKER GRID ─── */
+  /* ─── FORM SECTION ─── */
   .form-section {
     background: linear-gradient(135deg, var(--soft) 0%, #fff 50%, var(--soft) 100%);
     border-top:1px solid rgba(201,168,108,.15);
@@ -344,7 +314,6 @@
     text-align:center; font-size:.85rem; color:rgba(44,36,32,.5);
     margin-bottom:2rem; font-weight:300;
   }
-
   .form-group { margin-bottom:1.3rem; }
   .form-group label {
     display:block; font-size:.78rem; font-weight:500;
@@ -364,16 +333,14 @@
     box-shadow: 0 0 0 3px rgba(199,91,106,.1);
   }
   .form-group textarea { resize:vertical; min-height:80px; }
-
   .form-row { display:flex; gap:1rem; }
   .form-row .form-group { flex:1; }
 
   .form-note {
     font-size:.76rem; color:rgba(44,36,32,.4);
-    margin-top:.55rem; text-align:center;
+    margin-top:.8rem; text-align:center;
     font-style:italic;
   }
-
   .btn-submit {
     width:100%; margin-top:.6rem;
     padding:1rem; background:var(--rose); color:#fff;
@@ -387,20 +354,53 @@
     transform:translateY(-1px);
     box-shadow: 0 6px 28px rgba(199,91,106,.4);
   }
+  .btn-submit:disabled {
+    opacity:.5; cursor:not-allowed; transform:none;
+    box-shadow: 0 4px 20px rgba(199,91,106,.15);
+  }
 
-  /* success state */
-  .success-state { display:none; text-align:center; padding:1.5rem 0; }
+  /* ─── SELECTED STYLE BADGE (inside form) ─── */
+  .selected-badge {
+    display:flex; align-items:center; gap:.7rem;
+    background: var(--mist); border:1px solid rgba(199,91,106,.2);
+    border-radius:12px; padding:.6rem .85rem;
+    margin-bottom:1.4rem; cursor:pointer;
+    transition: border-color .2s;
+  }
+  .selected-badge:hover { border-color: rgba(199,91,106,.4); }
+  .selected-badge .swatch { width:36px; height:36px; border-radius:8px; flex-shrink:0; }
+  .selected-badge .swatch-midnight { background: linear-gradient(160deg, #0e0a0d, #1a1218); }
+  .selected-badge .swatch-parisian { background: linear-gradient(150deg, #faf6f0, #f0e6df); border:1px solid rgba(201,168,108,.2); }
+  .selected-badge .swatch-retro { background: #fef5e0; border:1px solid rgba(212,43,43,.15); }
+  .selected-badge .swatch-typewriter { background: #f0ebe3; border:1px solid rgba(44,35,25,.12); }
+  .selected-badge .swatch-constellation { background: linear-gradient(160deg, #07101e, #0d1b30); }
+  .selected-badge .badge-text { flex:1; }
+  .selected-badge .badge-text strong { display:block; font-size:.82rem; }
+  .selected-badge .badge-text span { font-size:.72rem; color:rgba(44,36,32,.45); }
+  .selected-badge .badge-change { font-size:.72rem; color:var(--rose); font-weight:500; letter-spacing:.3px; text-transform:uppercase; }
+
+  /* ─── SUCCESS STATE ─── */
+  .success-state { display:none; text-align:center; padding:1rem 0; }
   .success-state.visible { display:block; animation: fadeIn .5s ease; }
   .success-icon { font-size:3rem; margin-bottom:1rem; }
   .success-state h4 {
     font-family:'Playfair Display',serif;
     font-size:1.4rem; margin-bottom:.5rem; color:var(--rose);
   }
-  .success-state p { font-size:.9rem; color:rgba(44,36,32,.55); line-height:1.6; font-weight:300; }
+  .success-state p { font-size:.9rem; color:rgba(44,36,32,.55); line-height:1.7; font-weight:300; }
+  .success-state .preview-link {
+    display:inline-block; margin-top:1.4rem;
+    color:var(--rose); font-size:.82rem; font-weight:500;
+    text-decoration:none; border-bottom:1px solid var(--blush);
+    padding-bottom:2px; transition: border-color .2s;
+  }
+  .success-state .preview-link:hover { border-color: var(--rose); }
+  .success-state .email-note {
+    margin-top:1rem; font-size:.76rem; color:rgba(44,36,32,.4);
+    font-style:italic;
+  }
 
-  @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
-
-  /* ─── TRUST / SOCIAL ─── */
+  /* ─── TRUST ─── */
   .trust { text-align:center; }
   .trust-items {
     display:flex; justify-content:center; flex-wrap:wrap; gap:2.5rem;
@@ -424,7 +424,11 @@
     .step:not(:last-child)::after { display:none; }
     .form-row { flex-direction:column; gap:0; }
     .pricing-wrap, .form-wrap { padding:2rem 1.3rem; }
+    .style-grid { grid-template-columns:1fr; max-width:380px; }
+    .modal { padding:1.8rem 1.3rem; }
   }
+
+  @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
 </style>
 </head>
 <body>
@@ -437,7 +441,6 @@
 
 <!-- HERO -->
 <section class="hero">
-  <!-- petals -->
   <span class="petal">🌸</span>
   <span class="petal">🌷</span>
   <span class="petal">🌸</span>
@@ -447,34 +450,34 @@
 
   <div class="hero-badge">💌 Valentine's 2026</div>
   <h1>The most <em>beautiful</em> way to ask <span class="gold">Will you be mine?</span></h1>
-  <p class="hero-sub">We craft a stunning, interactive love letter page — personalized just for your partner. All you do is fill in the details. We handle the magic.</p>
+  <p class="hero-sub">A stunning, interactive love letter page — personalized just for your partner. Pick a design, write your heart, and we send the link instantly.</p>
   <div class="hero-cta">
-    <a href="#create" class="btn-primary">Start Your Proposal <span class="arrow">→</span></a>
+    <button class="btn-primary" onclick="document.getElementById('styles').scrollIntoView({behavior:'smooth'})">Start Your Proposal <span class="arrow">→</span></button>
   </div>
-  <p class="hero-note">Takes less than 2 minutes · Done in hours</p>
+  <p class="hero-note">Takes less than 2 minutes · Link sent instantly</p>
 </section>
 
 <!-- HOW IT WORKS -->
 <section class="section" id="how">
   <div class="section-label">The Process</div>
   <h2 class="section-title">Simple as breathing</h2>
-  <p class="section-sub">Three effortless steps stand between you and the most memorable Valentine's moment ever.</p>
+  <p class="section-sub">Three effortless steps between you and the most memorable Valentine's moment ever.</p>
 
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
-      <h3>Tell us your story</h3>
-      <p>Share your names, a short personal message, and your partner's email. That's it.</p>
+      <h3>Pick your style</h3>
+      <p>Choose from five beautifully crafted designs, each with its own mood and personality.</p>
     </div>
     <div class="step">
       <div class="step-num">2</div>
-      <h3>We craft the magic</h3>
-      <p>Our team designs a gorgeous, interactive one-page love letter — unique every time.</p>
+      <h3>Fill in & pay</h3>
+      <p>Add the names and a personal message. One quick payment and you're done.</p>
     </div>
     <div class="step">
       <div class="step-num">3</div>
-      <h3>Send & celebrate</h3>
-      <p>Your partner receives the link, experiences the surprise, and their answer comes straight to you.</p>
+      <h3>Link sent instantly</h3>
+      <p>Your partner receives the valentine the moment payment goes through. Nothing stored.</p>
     </div>
   </div>
 </section>
@@ -491,11 +494,10 @@
       <li>A fully custom, interactive Valentine's page</li>
       <li>Personalized message woven into the design</li>
       <li>Beautiful Yes / No reveal experience</li>
-      <li>Email delivery to your partner with the link</li>
-      <li>You get notified instantly of their answer</li>
-      <li>Stays live for 30 days</li>
+      <li>Email delivery link — sent instantly</li>
+      <li>Nothing stored — completely private</li>
     </ul>
-    <a href="#create" class="btn-primary" style="font-size:1rem; padding:1rem 2.6rem;">Create Mine Now <span class="arrow">→</span></a>
+    <button class="btn-primary" onclick="showForm()" style="font-size:1rem; padding:1rem 2.6rem;">Create Mine Now <span class="arrow">→</span></button>
   </div>
 </section>
 
@@ -506,10 +508,8 @@
   <p class="section-sub">Each design is a completely different mood. Pick the one that feels like you two.</p>
 
   <div class="style-grid">
-
     <div class="style-card active" data-style="midnight" onclick="pickStyle(this)">
       <div class="style-preview sp-midnight">
-        <div class="sp-stars"></div>
         <div class="sp-env">✉</div>
         <div class="sp-txt">A message for you…</div>
       </div>
@@ -573,45 +573,51 @@
       </div>
       <div class="style-check">✓</div>
     </div>
+  </div>
 
+  <!-- CTA below style grid -->
+  <div style="text-align:center; margin-top:2.8rem;">
+    <button class="btn-primary" onclick="showForm()">Continue <span class="arrow">→</span></button>
   </div>
 </section>
 
-<!-- FORM -->
-<section class="section form-section" id="create">
-  <div class="section-label">Get Started</div>
-  <h2 class="section-title">Make it happen</h2>
-  <p class="section-sub">Fill in the details below and we'll handle everything else.</p>
+<!-- FORM (hidden until after payment) -->
+<section class="section form-section" id="create" style="display:none;">
+  <div class="section-label">Almost there</div>
+  <h2 class="section-title">Make it personal</h2>
+  <p class="section-sub">Fill in the details and we'll build your Valentine's page instantly.</p>
 
   <div class="form-wrap">
-    <h3>Your Valentine's Details</h3>
-    <p>All info is kept private and only used to create your page.</p>
+    <!-- selected style badge -->
+    <div class="selected-badge" onclick="scrollToStyles()">
+      <div class="swatch" id="styleSwatch"></div>
+      <div class="badge-text">
+        <strong id="styleBadgeLabel">🌙 Midnight Garden</strong>
+        <span>Selected design</span>
+      </div>
+      <div class="badge-change">Change</div>
+    </div>
 
-    <!-- FORM -->
     <div id="formBlock">
       <div class="form-row">
         <div class="form-group">
           <label>Your Name</label>
-          <input type="text" placeholder="e.g. Alex" id="senderName" />
+          <input type="text" placeholder="e.g. Alex" id="senderName" oninput="clearError(this)" />
         </div>
         <div class="form-group">
           <label>Partner's Name</label>
-          <input type="text" placeholder="e.g. Jordan" id="partnerName" />
+          <input type="text" placeholder="e.g. Jordan" id="partnerName" oninput="clearError(this)" />
         </div>
       </div>
       <div class="form-group">
         <label>Partner's Email</label>
-        <input type="email" placeholder="jordan@email.com" id="partnerEmail" />
+        <input type="email" placeholder="jordan@email.com" id="partnerEmail" oninput="clearError(this)" />
       </div>
       <div class="form-group">
-        <label>Your Email (to receive their answer)</label>
-        <input type="email" placeholder="alex@email.com" id="senderEmail" />
-      </div>
-      <div class="form-group">
-        <label>A Personal Message (optional)</label>
+        <label>A Personal Message <span style="color:rgba(44,36,32,.35);font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
         <textarea placeholder="Something sweet only they would understand…" id="message"></textarea>
       </div>
-      <p class="form-note">💳 You'll be taken to a secure payment page after submitting.</p>
+      <p class="form-note" id="formNote">💳 After submitting you'll be taken to a secure payment page. Once paid, the valentine link is sent instantly.</p>
       <button class="btn-submit" onclick="handleSubmit()">Continue to Payment →</button>
     </div>
 
@@ -619,7 +625,13 @@
     <div class="success-state" id="successState">
       <div class="success-icon">🌸</div>
       <h4>You're all set!</h4>
-      <p>We've received your details. Your <strong id="styleConfirm">Midnight Garden</strong> Valentine's page will be delivered to <strong id="partnerEmailConfirm"></strong> within a few hours.<br><br>Keep an eye on your inbox — we'll notify you the moment they answer.</p>
+      <p>Your email app should have opened with the valentine link ready to send to <strong id="partnerEmailConfirm"></strong>.<br><br>If nothing opened, copy the link below and send it yourself — it works exactly the same.</p>
+      <div style="margin-top:1.2rem; background:var(--soft); border-radius:10px; padding:.75rem 1rem; display:flex; align-items:center; gap:.7rem;">
+        <div id="linkDisplay" style="flex:1; font-size:.78rem; color:var(--ink); word-break:break-all; font-weight:500;"></div>
+        <button onclick="copyLink()" style="background:var(--rose); color:#fff; border:none; border-radius:8px; padding:.4rem .85rem; font-size:.75rem; cursor:pointer; font-family:inherit; flex-shrink:0; transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Copy</button>
+      </div>
+      <a id="previewLink" href="#" target="_blank" class="preview-link" style="display:inline-block; margin-top:1rem;">👁 Preview your Valentine's page →</a>
+      <p class="email-note">Nothing is stored. Close this page whenever you like.</p>
     </div>
   </div>
 </section>
@@ -632,17 +644,17 @@
     <div class="trust-item">
       <div class="icon">🔒</div>
       <h4>Completely Private</h4>
-      <p>Your details are only used to build the page. No sharing, no selling, ever.</p>
+      <p>Nothing is stored on our end. The valentine lives entirely in the link.</p>
     </div>
     <div class="trust-item">
       <div class="icon">⚡</div>
-      <h4>Ready in Hours</h4>
-      <p>Submit before Feb 13 and your page is ready well before Valentine's Day.</p>
+      <h4>Instant</h4>
+      <p>No waiting. Your link is generated the moment you hit send.</p>
     </div>
     <div class="trust-item">
       <div class="icon">💌</div>
       <h4>Unique Every Time</h4>
-      <p>Every page is handcrafted — no templates, no cookie-cutter designs.</p>
+      <p>Five distinct designs, each a completely different experience.</p>
     </div>
     <div class="trust-item">
       <div class="icon">❤️</div>
@@ -658,51 +670,198 @@
   <p>© 2026 WhisperYes. All rights reserved. · Made with care for every couple.</p>
 </footer>
 
-<script>
-let selectedStyle = 'midnight';
+<!-- no modal; payment is external redirect -->
 
+<script>
+// ─────────────────────────────────────────────
+// CONFIG — replace PAYMENT_URL with your actual
+// payment provider link.  The provider must
+// redirect back to:
+//   https://yourdomain.com/index.html?paid=true
+// after a successful charge.
+// ─────────────────────────────────────────────
+const PAYMENT_URL = 'https://YOUR_PAYMENT_PROVIDER.com/pay/YOUR_PRODUCT_ID';
+// ─────────────────────────────────────────────
+
+// ─── CONSTANTS ───
+const SESSION_KEY = 'whisper_pending';           // key used in sessionStorage
+let   selectedStyle = 'midnight';                // tracks style-grid pick
+
+const styleLabels = {
+  midnight:      '🌙 Midnight Garden',
+  parisian:      '🌸 Parisian Watercolor',
+  retro:         '❤️ Retro Valentine',
+  typewriter:    '📜 Typewriter Letter',
+  constellation: '✨ Constellation'
+};
+
+// ─── STYLE PICKER ───
 function pickStyle(card) {
   document.querySelectorAll('.style-card').forEach(c => c.classList.remove('active'));
   card.classList.add('active');
   selectedStyle = card.dataset.style;
+  updateStyleBadge();
 }
 
+function updateStyleBadge() {
+  document.getElementById('styleSwatch').className  = 'swatch swatch-' + selectedStyle;
+  document.getElementById('styleBadgeLabel').textContent = styleLabels[selectedStyle];
+}
+
+function scrollToStyles() {
+  document.getElementById('styles').scrollIntoView({ behavior:'smooth' });
+}
+
+// ─── SHOW FORM (called by every "Continue" / pricing CTA) ───
+function showForm() {
+  document.getElementById('create').style.display = 'block';
+  updateStyleBadge();
+  setTimeout(() => {
+    document.getElementById('create').scrollIntoView({ behavior:'smooth' });
+  }, 120);
+}
+
+// ─── FORM VALIDATION HELPERS ───
+function clearError(el) {
+  el.style.borderColor = '';
+  el.style.boxShadow  = '';
+}
+function markError(el) {
+  el.style.borderColor = '#d42b2b';
+  el.style.boxShadow  = '0 0 0 3px rgba(212,43,43,.12)';
+  el.focus();
+}
+
+// ─── SUBMIT → validate → save → redirect to payment ───
 function handleSubmit() {
-  const senderName  = document.getElementById('senderName').value.trim();
-  const partnerName = document.getElementById('partnerName').value.trim();
-  const partnerEmail= document.getElementById('partnerEmail').value.trim();
-  const senderEmail = document.getElementById('senderEmail').value.trim();
+  const senderName   = document.getElementById('senderName').value.trim();
+  const partnerName  = document.getElementById('partnerName').value.trim();
+  const partnerEmail = document.getElementById('partnerEmail').value.trim();
+  const message      = document.getElementById('message').value.trim();
 
-  // Simple validation
-  if (!senderName || !partnerName || !partnerEmail || !senderEmail) {
-    alert('Please fill in all required fields.');
-    return;
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(partnerEmail)) {
-    alert('Please enter a valid partner email.');
-    return;
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(senderEmail)) {
-    alert('Please enter a valid email for yourself.');
-    return;
+  // ── validate ──
+  if (!senderName)  { markError(document.getElementById('senderName'));  return; }
+  if (!partnerName) { markError(document.getElementById('partnerName')); return; }
+  if (!partnerEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(partnerEmail)) {
+    markError(document.getElementById('partnerEmail')); return;
   }
 
-  // Show success (in production this would go to payment flow → backend)
-  document.getElementById('formBlock').style.display = 'none';
-  document.getElementById('partnerEmailConfirm').textContent = partnerEmail;
-
-  // Style label map
-  const styleLabels = {
-    midnight: '🌙 Midnight Garden',
-    parisian: '🌸 Parisian Watercolor',
-    retro:    '❤️ Retro Valentine',
-    typewriter: '📜 Typewriter Letter',
-    constellation: '✨ Constellation'
+  // ── persist to sessionStorage (gone once tab closes) ──
+  const pending = {
+    style:         selectedStyle,
+    senderName:    senderName,
+    partnerName:   partnerName,
+    partnerEmail:  partnerEmail,
+    message:       message
   };
-  document.getElementById('styleConfirm').textContent = styleLabels[selectedStyle];
+  sessionStorage.setItem(SESSION_KEY, JSON.stringify(pending));
 
+  // ── show a brief "redirecting…" state on the button ──
+  const btn = document.querySelector('.btn-submit');
+  btn.textContent  = 'Redirecting to payment…';
+  btn.disabled     = true;
+
+  // ── redirect to payment provider ──
+  // Small delay so the user sees the button state change
+  setTimeout(() => {
+    window.location.href = PAYMENT_URL;
+  }, 600);
+}
+
+// ─── BUILD VALENTINE LINK from a data object ───
+function buildLink(data) {
+  const params = new URLSearchParams();
+  params.set('s', data.senderName);
+  params.set('p', data.partnerName);
+  if (data.message) params.set('m', data.message);
+
+  const base = window.location.href.split('?')[0].replace(/[^/]*$/, '');
+  return base + 'valentine_' + data.style + '.html#' + params.toString();
+}
+
+// ─── SEND MAILTO ───
+function sendMail(data, link) {
+  const subject = encodeURIComponent('Something special for you 💌');
+  const body    = encodeURIComponent(
+    'I have something really special for you.\n\nClick the link below to see it:\n\n' +
+    link + '\n\n— ' + data.senderName
+  );
+  const mailto = 'mailto:' + encodeURIComponent(data.partnerEmail)
+               + '?subject=' + subject + '&body=' + body;
+  window.open(mailto, '_blank');
+}
+
+// ─── SHOW SUCCESS STATE ───
+function showSuccess(data, link) {
+  document.getElementById('formBlock').style.display         = 'none';
+  document.getElementById('partnerEmailConfirm').textContent = data.partnerEmail;
+  document.getElementById('linkDisplay').textContent         = link;
+  document.getElementById('previewLink').href                = link;
   document.getElementById('successState').classList.add('visible');
 }
+
+// ─── COPY LINK (used by the copy button in success state) ───
+function copyLink() {
+  const link = document.getElementById('linkDisplay').textContent;
+  navigator.clipboard.writeText(link).then(() => {
+    const btn  = event.target;
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copied';
+    setTimeout(() => { btn.textContent = orig; }, 1400);
+  });
+}
+
+// ─────────────────────────────────────────────
+// PAGE-LOAD ROUTER
+// Runs once on every load — decides what to show.
+// ─────────────────────────────────────────────
+(function onLoad() {
+  const url    = new URL(window.location.href);
+  const paid   = url.searchParams.has('paid');   // ?paid=true (or any value)
+  const pending = sessionStorage.getItem(SESSION_KEY);
+
+  if (paid && pending) {
+    // ── Payment succeeded & we have the saved data ──
+    // Clean URL (remove ?paid) without a page reload
+    history.replaceState(null, '', url.pathname);
+
+    const data = JSON.parse(pending);
+    sessionStorage.removeItem(SESSION_KEY);       // wipe immediately
+
+    // Restore style selection in the grid (visual only)
+    selectedStyle = data.style;
+    document.querySelectorAll('.style-card').forEach(c => {
+      c.classList.toggle('active', c.dataset.style === data.style);
+    });
+
+    // Show the form section (so success state has a home)
+    document.getElementById('create').style.display = 'block';
+    updateStyleBadge();
+
+    // Build link & send
+    const link = buildLink(data);
+    sendMail(data, link);
+    showSuccess(data, link);
+
+    // Scroll straight to success
+    setTimeout(() => {
+      document.getElementById('create').scrollIntoView({ behavior:'smooth' });
+    }, 250);
+
+  } else if (paid && !pending) {
+    // Edge-case: ?paid present but session data is gone
+    // (tab was closed & reopened, or cleared).  Show a friendly fallback.
+    history.replaceState(null, '', url.pathname);
+    showForm();                                   // let them re-fill
+    setTimeout(() => {
+      document.getElementById('create').scrollIntoView({ behavior:'smooth' });
+    }, 200);
+    // Show a small note inside the form note area
+    document.getElementById('formNote').innerHTML =
+      '⚠️ It looks like your session expired. Please fill in the details again and we\'ll send it right away.';
+  }
+  // else: normal landing — everything stays hidden/default
+})();
 </script>
 </body>
 </html>
