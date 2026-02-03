@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A Letter for You</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Eb+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --paper:#f0ebe3; --ink:#2c2319; --faded:rgba(44,35,25,.4);
+    --blot:rgba(44,35,25,.06); --rust:#8b4a3a; --warm:rgba(139,74,58,.12);
+  }
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:'Special Elite',cursive;
+    min-height:100vh; overflow-x:hidden; position:relative;
+  }
+
+  /* ─── PAPER GRAIN ─── */
+  body::before{
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
+  }
+
+  /* ─── INK BLOTS (decorative) ─── */
+  .ink-blot{position:fixed;border-radius:50%;filter:blur(18px);pointer-events:none;z-index:0;}
+  .blot-1{width:200px;height:180px;background:var(--blot);top:10%;left:-50px;transform:scale(1.2,0.9);}
+  .blot-2{width:140px;height:160px;background:var(--blot);bottom:15%;right:-40px;transform:scale(0.9,1.1);}
+  .blot-3{width:100px;height:90px;background:rgba(139,74,58,.04);top:50%;left:70%;transform:scale(1.1,0.85);}
+
+  /* ─── RULED LINES (subtle) ─── */
+  .ruled-bg{
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:repeating-linear-gradient(
+      to bottom,
+      transparent 0px, transparent 37px,
+      rgba(44,35,25,.045) 37px, rgba(44,35,25,.045) 38px
+    );
+  }
+
+  /* ─── PAGE ─── */
+  .page{
+    position:relative; z-index:2;
+    max-width:680px; margin:0 auto;
+    min-height:100vh; display:flex; flex-direction:column;
+    justify-content:center; padding:5rem 2rem;
+  }
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1);}
+  .reveal.show{opacity:1;transform:translateY(0);}
+  .d1{transition-delay:.1s}.d2{transition-delay:.45s}.d3{transition-delay:.8s}.d4{transition-delay:1.15s}.d5{transition-delay:1.5s}.d6{transition-delay:1.9s}
+
+  /* ─── DATE LINE ─── */
+  .date-line{
+    font-size:.88rem; color:var(--faded);
+    text-align:right; margin-bottom:2.2rem;
+    font-style:italic;
+  }
+
+  /* ─── SALUTATION ─── */
+  .salutation{
+    font-family:'Eb Garamond',serif;
+    font-size:1.7rem; font-weight:400; font-style:italic;
+    color:var(--ink); margin-bottom:1.6rem; line-height:1.4;
+  }
+  .salutation .name{color:var(--rust);font-weight:500;}
+
+  /* ─── BODY TEXT (typewriter feel) ─── */
+  .letter-body{
+    font-size:1.02rem; line-height:2; color:var(--ink);
+    margin-bottom:1.8rem;
+  }
+  .letter-body .typed{
+    /* simulate slight imperfection: subtle text shadow */
+    text-shadow: .5px .5px 0 rgba(44,35,25,.08);
+  }
+
+  /* ─── INK UNDERLINE DECORATION ─── */
+  .ink-underline{
+    display:inline-block; position:relative;
+  }
+  .ink-underline::after{
+    content:''; position:absolute; bottom:-2px; left:-4px; right:-4px;
+    height:2px;
+    background:var(--rust); opacity:.5;
+    border-radius:1px;
+  }
+
+  /* ─── THE QUESTION LINE ─── */
+  .question-line{
+    font-family:'Eb Garamond',serif;
+    font-size:1.5rem; font-style:italic;
+    color:var(--ink); margin-bottom:2.4rem;
+    line-height:1.6;
+  }
+  .question-line .rust{color:var(--rust);font-weight:500;}
+
+  /* ─── SIGN-OFF ─── */
+  .sign-off{
+    font-family:'Eb Garamond',serif;
+    font-size:1.1rem; font-style:italic;
+    color:var(--faded); margin-bottom:2.8rem;
+  }
+  .sign-off .signature-name{
+    display:block; font-size:1.55rem; font-weight:500;
+    color:var(--rust); margin-top:.3rem;
+    font-style:italic;
+  }
+
+  /* ─── DIVIDER ─── */
+  .typed-divider{
+    width:100%; height:1px;
+    background:repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 4px, transparent 4px, transparent 8px);
+    opacity:.12; margin:0 0 2.2rem;
+  }
+
+  /* ─── BUTTONS ─── */
+  .btn-wrap{text-align:center;}
+  .buttons{display:inline-flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;}
+  .btn{
+    padding:.75rem 1.8rem; border:2px solid var(--ink);
+    background:transparent; font-family:'Special Elite',cursive;
+    font-size:.92rem; color:var(--ink); cursor:pointer;
+    transition:background .25s, color .25s, transform .3s cubic-bezier(.22,1,.36,1), box-shadow .25s;
+    position:relative;
+  }
+  .btn:hover{background:var(--ink);color:var(--paper);}
+  .btn-yes{border-color:var(--rust);color:var(--rust);}
+  .btn-yes:hover{background:var(--rust);color:#fff;}
+  .btn-no{border-color:var(--faded);color:var(--faded);font-size:.82rem;transition:transform .35s cubic-bezier(.22,1,.36,1),background .25s,color .25s,border-color .25s;}
+  .btn-no:hover{border-color:var(--ink);color:var(--ink);}
+
+  /* ─── RESULTS ─── */
+  .result{display:none;max-width:540px;margin:0 auto;text-align:left;}
+  .result.show{display:block;animation:typeIn .8s cubic-bezier(.22,1,.36,1) both;}
+  @keyframes typeIn{from{opacity:0;filter:blur(1px)}to{opacity:1;filter:blur(0)}}
+
+  .result-yes .stamp-yes{
+    display:inline-block; border:3px solid var(--rust);
+    padding:.2rem .7rem; font-family:'Special Elite',cursive;
+    font-size:1.6rem; color:var(--rust);
+    transform:rotate(-2deg); opacity:.7;
+    box-shadow:inset 0 0 0 2px rgba(139,74,58,.15);
+    margin-bottom:1.5rem; position:relative;
+  }
+  .result-yes .stamp-yes::before{
+    content:''; position:absolute; inset:-2px;
+    border:1px solid rgba(139,74,58,.2);
+  }
+  .result h2{
+    font-family:'Eb Garamond',serif; font-size:1.6rem;
+    font-style:italic; margin-bottom:.8rem;
+  }
+  .result-yes h2{color:var(--rust);}
+  .result-no h2{color:var(--faded);}
+  .result p{font-size:.96rem;line-height:1.8;color:var(--faded);}
+
+  .result-no .x-mark{
+    display:inline-block; font-size:2.2rem;
+    color:var(--faded); margin-bottom:1rem;
+    font-family:'Special Elite',cursive;
+  }
+
+  .share-row{margin-top:2rem;text-align:center;}
+  .share-btn{padding:.45rem 1rem;border:1.5px solid var(--faded);background:transparent;font-family:inherit;font-size:.82rem;color:var(--faded);cursor:pointer;transition:color .3s,border-color .3s;}
+  .share-btn:hover{color:var(--ink);border-color:var(--ink);}
+
+  .footer-mark{
+    position:fixed; bottom:1rem; right:1.5rem;
+    font-size:.62rem; letter-spacing:1.5px; text-transform:uppercase;
+    color:rgba(44,35,25,.2); z-index:3;
+  }
+
+  @media(max-width:600px){
+    .page{padding:4rem 1.2rem;}
+  }
+</style>
+</head>
+<body>
+<div class="ink-blot blot-1"></div>
+<div class="ink-blot blot-2"></div>
+<div class="ink-blot blot-3"></div>
+<div class="ruled-bg"></div>
+
+<div class="page" id="mainPage">
+  <div class="reveal d1 date-line">February 14, 2026</div>
+
+  <div class="reveal d2 salutation">
+    Dear <span class="name" id="partnerNameEl">Jordan</span>,
+  </div>
+
+  <p class="reveal d3 letter-body">
+    <span class="typed" id="personalMessage">From the very first moment I saw you, I knew there was something extraordinary about you. Every day with you feels like the most beautiful adventure. You make my ordinary moments feel like magic — and I don't want to spend this Valentine's Day with anyone else.</span>
+  </p>
+
+  <p class="reveal d4 letter-body" style="margin-top:-.6rem;">
+    <span class="typed">I've been thinking about how to say this for a while now. And I realized — there's no perfect way. There's only the honest way.</span>
+  </p>
+
+  <p class="reveal d5 question-line">
+    So here it is, plainly written:<br>
+    <span class="rust" id="partnerNameQ">Jordan</span>, will you be my <span class="ink-underline rust">Valentine</span>?
+  </p>
+
+  <div class="reveal d5 sign-off">
+    With all my heart,
+    <span class="signature-name" id="senderNameEl">— Alex</span>
+  </div>
+
+  <div class="reveal d6 typed-divider"></div>
+
+  <div class="reveal d6 btn-wrap">
+    <div class="buttons">
+      <button class="btn btn-yes" onclick="answer('yes')">Yes, I will</button>
+      <button class="btn btn-no" id="noBtn" onmouseenter="wiggleNo()" onclick="answer('no')">No…</button>
+    </div>
+  </div>
+</div>
+
+<!-- YES -->
+<div class="result result-yes" id="resultYes">
+  <div class="stamp-yes">✓ YES</div>
+  <h2>What a beautiful reply.</h2>
+  <p><strong id="senderNameRes">Alex</strong> is going to read this and feel the happiest person alive.<br><br>Thank you for saying yes. This Valentine's Day just became perfect.</p>
+  <div class="share-row"><button class="share-btn" onclick="shareThis()">Share this letter</button></div>
+</div>
+<!-- NO -->
+<div class="result result-no" id="resultNo">
+  <span class="x-mark">✗</span>
+  <h2>A quiet moment.</h2>
+  <p><strong id="senderNameResNo">Alex</strong> will understand, and will always care.<br><br>Some things just take time. 💛</p>
+</div>
+
+<div class="footer-mark">WhisperYes</div>
+
+<script>
+const CONFIG={senderName:"Alex",partnerName:"Jordan",message:"From the very first moment I saw you, I knew there was something extraordinary about you. Every day with you feels like the most beautiful adventure. You make my ordinary moments feel like magic — and I don't want to spend this Valentine's Day with anyone else."};
+document.getElementById('senderNameEl').textContent=CONFIG.senderName;
+// the sign-off name
+document.querySelectorAll('.signature-name')[0].textContent='— '+CONFIG.senderName;
+document.getElementById('partnerNameEl').textContent=CONFIG.partnerName;
+document.getElementById('partnerNameQ').textContent=CONFIG.partnerName;
+document.getElementById('personalMessage').textContent=CONFIG.message;
+document.getElementById('senderNameRes').textContent=CONFIG.senderName;
+document.getElementById('senderNameResNo').textContent=CONFIG.senderName;
+
+window.addEventListener('load',()=>document.querySelectorAll('.reveal').forEach(e=>e.classList.add('show')));
+
+let noCount=0;
+function wiggleNo(){
+  noCount++;
+  const b=document.getElementById('noBtn');
+  const sc=Math.max(.55,1-noCount*.07);
+  const tx=(Math.random()-.5)*100;
+  const ty=(Math.random()-.5)*40;
+  b.style.transition='transform .4s cubic-bezier(.22,1,.36,1)';
+  b.style.transform=`translate(${tx}px,${ty}px) scale(${sc})`;
+  setTimeout(()=>{b.style.transform=`scale(${sc})`;},400);
+}
+function answer(c){
+  document.getElementById('mainPage').style.opacity='0';
+  document.getElementById('mainPage').style.transition='opacity .5s';
+  setTimeout(()=>{document.getElementById('mainPage').style.display='none';c==='yes'?showYes():showNo();},520);
+}
+function showYes(){document.getElementById('resultYes').classList.add('show');}
+function showNo(){document.getElementById('resultNo').classList.add('show');}
+function shareThis(){
+  if(navigator.share)navigator.share({title:'I said Yes!',text:`${CONFIG.partnerName} said YES!`,url:window.location.href}).catch(()=>{});
+  else navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!'));
+}
+</script>
+</body>
+</html>

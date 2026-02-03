@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A Message for You 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Caveat:wght@400;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --red:#d42b2b; --cream:#fef5e0; --ink:#2a1810;
+    --pink:#f48fb1; --gold:#e8b84b; --navy:#1a2744;
+    --dot:rgba(212,43,43,.08);
+  }
+  body{
+    background:var(--cream); color:var(--ink);
+    font-family:'DM Sans',sans-serif;
+    min-height:100vh; overflow-x:hidden; position:relative;
+  }
+
+  /* ─── HALFTONE DOT PATTERN ─── */
+  body::before{
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:radial-gradient(circle, var(--dot) 1.2px, transparent 1.2px);
+    background-size:18px 18px;
+  }
+
+  /* ─── DECORATIVE BORDERS ─── */
+  .border-frame{
+    position:fixed; inset:12px; border:2.5px solid var(--red);
+    border-radius:4px; pointer-events:none; z-index:1; opacity:.45;
+  }
+  .border-frame::before{
+    content:''; position:absolute; inset:5px;
+    border:1px dashed rgba(212,43,43,.3); border-radius:2px;
+  }
+  /* corner stars */
+  .corner{position:absolute;font-size:1.1rem;color:var(--red);opacity:.7;}
+  .corner.tl{top:-6px;left:-6px;} .corner.tr{top:-6px;right:-6px;}
+  .corner.bl{bottom:-6px;left:-6px;} .corner.br{bottom:-6px;right:-6px;}
+
+  /* ─── PAGE ─── */
+  .page{
+    position:relative; z-index:2;
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:4rem 1.5rem; text-align:center;
+  }
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(18px) scale(.97);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+  .reveal.show{opacity:1;transform:translateY(0) scale(1);}
+  .d1{transition-delay:.05s}.d2{transition-delay:.25s}.d3{transition-delay:.48s}.d4{transition-delay:.7s}.d5{transition-delay:.95s}.d6{transition-delay:1.25s}
+
+  /* ─── BIG HEART BADGE ─── */
+  .heart-badge{
+    width:96px; height:96px; margin-bottom:1.4rem;
+    animation:heartBounce 1.8s cubic-bezier(.22,1,.36,1) .1s both;
+  }
+  @keyframes heartBounce{
+    0%  {transform:scale(0) rotate(-12deg)}
+    60% {transform:scale(1.15) rotate(4deg)}
+    80% {transform:scale(.92) rotate(-2deg)}
+    100%{transform:scale(1) rotate(0)}
+  }
+
+  /* ─── FROM BANNER ─── */
+  .from-banner{
+    display:inline-block;
+    background:var(--red); color:#fff;
+    padding:.42rem 1.3rem; border-radius:0;
+    font-size:.72rem; font-weight:500; letter-spacing:2.5px;
+    text-transform:uppercase; margin-bottom:1.2rem;
+    position:relative; transform:rotate(-1.5deg);
+    box-shadow:3px 3px 0 rgba(42,24,16,.2);
+  }
+  .from-banner::before,.from-banner::after{
+    content:'★'; position:absolute; top:50%; transform:translateY(-50%);
+    color:var(--gold); font-size:.7rem;
+  }
+  .from-banner::before{left:.5rem;} .from-banner::after{right:.5rem;}
+
+  /* ─── HEADLINE ─── */
+  .headline{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2.6rem,7vw,4.4rem);
+    font-weight:900; line-height:1.05;
+    color:var(--ink); max-width:620px;
+  }
+  .headline .red{color:var(--red);}
+  .headline .script{font-family:'Caveat',cursive;font-weight:600;font-size:1.2em;color:var(--red);}
+
+  /* ─── ZIGZAG DIVIDER ─── */
+  .zigzag{
+    width:160px; height:16px; margin:1.8rem auto;
+    background:repeating-linear-gradient(
+      90deg,
+      var(--red) 0, var(--red) 10px,
+      transparent 10px, transparent 16px
+    );
+    clip-path:polygon(0 100%, 6px 0, 12px 100%, 18px 0, 24px 100%, 30px 0, 36px 100%, 42px 0, 48px 100%, 54px 0, 60px 100%, 66px 0, 72px 100%, 78px 0, 84px 100%, 90px 0, 96px 100%, 102px 0, 108px 100%, 114px 0, 120px 100%, 126px 0, 132px 100%, 138px 0, 144px 100%, 150px 0, 156px 100%, 160px 0, 160px 100%, 0 100%);
+    opacity:.45;
+  }
+
+  /* ─── MESSAGE CARD ─── */
+  .msg-card{
+    max-width:490px; margin:0 auto;
+    background:#fff; border:2.5px solid var(--red);
+    border-radius:8px; padding:2rem 2.2rem;
+    position:relative;
+    box-shadow:5px 5px 0 rgba(212,43,43,.18);
+  }
+  .msg-card .tag{
+    position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+    background:var(--gold); color:var(--ink);
+    font-size:.68rem; font-weight:500; letter-spacing:1.5px;
+    text-transform:uppercase; padding:.22rem .7rem;
+    border-radius:2px;
+  }
+  .msg-card p{
+    font-family:'Caveat',cursive; font-size:1.35rem;
+    line-height:1.6; color:rgba(42,24,16,.75);
+  }
+
+  /* ─── QUESTION ─── */
+  .question{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.7rem,4.5vw,2.3rem);
+    font-weight:700; color:var(--ink);
+    margin:1.8rem 0 .8rem;
+  }
+  .question .red{color:var(--red);}
+  .question .script{font-family:'Caveat',cursive;font-size:1.15em;color:var(--red);}
+
+  /* ─── BUTTONS ─── */
+  .buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+  .btn{
+    padding:.85rem 2rem; border:none;
+    font-family:'DM Sans',sans-serif; font-size:.88rem;
+    font-weight:500; letter-spacing:1.4px; text-transform:uppercase;
+    cursor:pointer; border-radius:4px;
+    transition:transform .2s,box-shadow .2s;
+  }
+  .btn:hover{transform:translate(-2px,-2px);}
+  .btn-yes{
+    background:var(--red); color:#fff;
+    box-shadow:4px 4px 0 var(--navy);
+  }
+  .btn-yes:hover{box-shadow:6px 6px 0 var(--navy);transform:translate(-2px,-2px);}
+  .btn-no{
+    background:#fff; color:rgba(42,24,16,.4);
+    border:2px solid rgba(42,24,16,.2)!important;
+    box-shadow:3px 3px 0 rgba(42,24,16,.12);
+    transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .2s,color .3s;
+  }
+  .btn-no:hover{color:rgba(42,24,16,.6);box-shadow:4px 4px 0 rgba(42,24,16,.18);}
+
+  /* ─── RESULTS ─── */
+  .result{display:none;text-align:center;max-width:540px;margin:0 auto;}
+  .result.show{display:block;animation:popIn .6s cubic-bezier(.22,1,.36,1) both;}
+  @keyframes popIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+
+  .result-yes .big-stamp{
+    width:160px;height:160px;margin:0 auto 1rem;
+    border:5px solid var(--red); border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    position:relative; background:rgba(212,43,43,.06);
+    animation:stampIn .45s cubic-bezier(.22,1,.36,1) .2s both;
+  }
+  @keyframes stampIn{from{transform:scale(0) rotate(-15deg);opacity:0}to{transform:scale(1) rotate(-3deg);opacity:1}}
+  .result-yes .big-stamp span{
+    font-family:'Playfair Display',serif;
+    font-size:3.2rem; font-weight:900; color:var(--red);
+    transform:rotate(-3deg); display:block;
+  }
+  .result-yes .big-stamp .lines{
+    position:absolute; inset:8px; border:2px solid rgba(212,43,43,.25);
+    border-radius:50%;
+  }
+
+  .result-yes h2,.result-no h2{
+    font-family:'Playfair Display',serif;
+    font-size:2rem; font-weight:900; margin-bottom:.5rem;
+  }
+  .result-yes h2{color:var(--red);}
+  .result-no h2{color:rgba(42,24,16,.45);}
+  .result p{font-size:.95rem;color:rgba(42,24,16,.55);line-height:1.6;}
+  .result-no .sad-stamp{font-size:2.5rem;margin-bottom:.8rem;display:block;}
+
+  .share-row{margin-top:1.5rem;}
+  .share-btn{padding:.45rem 1.1rem;border-radius:4px;border:2px solid rgba(42,24,16,.2);background:transparent;color:rgba(42,24,16,.5);font-family:inherit;font-size:.76rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;box-shadow:2px 2px 0 rgba(42,24,16,.1);transition:color .3s,box-shadow .2s,transform .2s;}
+  .share-btn:hover{color:var(--ink);box-shadow:3px 3px 0 rgba(42,24,16,.18);transform:translate(-1px,-1px);}
+
+  .signature{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);font-size:.64rem;letter-spacing:2.5px;text-transform:uppercase;color:rgba(42,24,16,.25);z-index:3;white-space:nowrap;}
+</style>
+</head>
+<body>
+
+<!-- frame -->
+<div class="border-frame">
+  <span class="corner tl">★</span><span class="corner tr">★</span>
+  <span class="corner bl">★</span><span class="corner br">★</span>
+</div>
+
+<div class="page" id="mainPage">
+  <!-- heart badge -->
+  <div class="reveal d1 heart-badge">
+    <svg viewBox="0 0 96 96" fill="none">
+      <path d="M48 82 C48 82 8 56 8 32 C8 18 18 8 30 8 C38 8 44 13 48 18 C52 13 58 8 66 8 C78 8 88 18 88 32 C88 56 48 82 48 82Z" fill="var(--red)"/>
+      <path d="M48 76 C48 76 16 54 16 35 C16 24 23 16 32 16 C38 16 43 20 48 25 C53 20 58 16 64 16 C73 16 80 24 80 35 C80 54 48 76 48 76Z" fill="rgba(255,255,255,.15)"/>
+      <!-- small text inside heart -->
+      <text x="48" y="42" text-anchor="middle" font-family="Caveat,cursive" font-size="10" fill="#fff" opacity=".85">Be My</text>
+      <text x="48" y="54" text-anchor="middle" font-family="Playfair Display,serif" font-size="12" font-weight="700" fill="#fff">Valentine</text>
+    </svg>
+  </div>
+
+  <div class="reveal d2 from-banner">A note from <strong id="senderNameEl">Alex</strong></div>
+
+  <h1 class="reveal d3 headline">
+    Hey <span class="red" id="partnerNameEl">Jordan</span>,<br>
+    <span class="script">I've been thinking…</span>
+  </h1>
+
+  <div class="reveal d4 zigzag"></div>
+
+  <div class="reveal d5 msg-card">
+    <div class="tag">✦ My Message ✦</div>
+    <p id="personalMessage">From the very first moment I saw you, I knew there was something extraordinary about you. Every day with you feels like the most beautiful adventure. You make my ordinary moments feel like magic — and I don't want to spend this Valentine's Day with anyone else.</p>
+  </div>
+
+  <p class="reveal d5 question">
+    So, <span class="red" id="partnerNameQ">Jordan</span>…<br>
+    <span class="script">Will you be my Valentine?</span>
+  </p>
+
+  <div class="reveal d6 buttons">
+    <button class="btn btn-yes" onclick="answer('yes')">Yes! ✓</button>
+    <button class="btn btn-no" id="noBtn" onmouseenter="wiggleNo()" onclick="answer('no')">No…</button>
+  </div>
+</div>
+
+<!-- YES -->
+<div class="result result-yes" id="resultYes">
+  <div class="big-stamp">
+    <div class="lines"></div>
+    <span>YES!</span>
+  </div>
+  <h2>🎉 You said Yes!</h2>
+  <p><strong id="senderNameRes">Alex</strong> is going to be over the moon!<br>What a perfect Valentine's Day this is turning out to be.</p>
+  <div class="share-row"><button class="share-btn" onclick="shareThis()">Share the joy ★</button></div>
+</div>
+<!-- NO -->
+<div class="result result-no" id="resultNo">
+  <span class="sad-stamp">💔</span>
+  <h2>Oh no…</h2>
+  <p><strong id="senderNameResNo">Alex</strong> will understand.<br>Maybe another Valentine's Day. 💛</p>
+</div>
+
+<div class="signature">WhisperYes · Made with love</div>
+
+<script>
+const CONFIG={senderName:"Alex",partnerName:"Jordan",message:"From the very first moment I saw you, I knew there was something extraordinary about you. Every day with you feels like the most beautiful adventure. You make my ordinary moments feel like magic — and I don't want to spend this Valentine's Day with anyone else."};
+document.getElementById('senderNameEl').textContent=CONFIG.senderName;
+document.getElementById('partnerNameEl').textContent=CONFIG.partnerName;
+document.getElementById('partnerNameQ').textContent=CONFIG.partnerName;
+document.getElementById('personalMessage').textContent=CONFIG.message;
+document.getElementById('senderNameRes').textContent=CONFIG.senderName;
+document.getElementById('senderNameResNo').textContent=CONFIG.senderName;
+window.addEventListener('load',()=>document.querySelectorAll('.reveal').forEach(e=>e.classList.add('show')));
+
+let noCount=0;
+function wiggleNo(){
+  noCount++;
+  const b=document.getElementById('noBtn');
+  const sc=Math.max(.5,1-noCount*.08);
+  const tx=(Math.random()-.5)*150;
+  const ty=(Math.random()-.5)*60;
+  b.style.transition='transform .3s cubic-bezier(.22,1,.36,1)';
+  b.style.transform=`translate(${tx}px,${ty}px) scale(${sc})`;
+  setTimeout(()=>{b.style.transform=`scale(${sc})`;},350);
+}
+function answer(c){
+  document.getElementById('mainPage').style.opacity='0';
+  document.getElementById('mainPage').style.transition='opacity .35s';
+  setTimeout(()=>{document.getElementById('mainPage').style.display='none';c==='yes'?showYes():showNo();},400);
+}
+function showYes(){document.getElementById('resultYes').classList.add('show');}
+function showNo(){document.getElementById('resultNo').classList.add('show');}
+function shareThis(){
+  if(navigator.share)navigator.share({title:'I said Yes!',text:`${CONFIG.partnerName} said YES!`,url:window.location.href}).catch(()=>{});
+  else navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!'));
+}
+</script>
+</body>
+</html>

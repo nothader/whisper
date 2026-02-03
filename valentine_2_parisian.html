@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A Message for You 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --paper:#faf6f0; --ink:#3b2f2a; --rose:#c4717a;
+    --blush:#f0c4c8; --sage:#a3b899; --gold:#b8956a;
+    --light:rgba(196,113,122,.13);
+  }
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:'Raleway',sans-serif; min-height:100vh;
+    overflow-x:hidden; position:relative;
+  }
+
+  /* ─── PAPER TEXTURE (noise overlay) ─── */
+  body::before{
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+    opacity:.6;
+  }
+
+  /* ─── WATERCOLOR BLOBS (static bg) ─── */
+  .wc-blob{position:fixed;border-radius:50%;filter:blur(70px);pointer-events:none;z-index:0;}
+  .wc-1{width:440px;height:440px;background:rgba(196,113,122,.11);top:-60px;right:-80px;}
+  .wc-2{width:340px;height:340px;background:rgba(163,184,153,.1);bottom:-40px;left:-70px;}
+  .wc-3{width:220px;height:220px;background:rgba(184,149,106,.08);top:45%;left:55%;}
+  .wc-4{width:180px;height:180px;background:rgba(196,113,122,.06);bottom:30%;right:15%;}
+
+  /* ─── FALLING PETALS ─── */
+  .petal{
+    position:fixed; top:-60px; z-index:1; pointer-events:none;
+    animation:petalFall var(--dur) linear infinite;
+    animation-delay: var(--del);
+  }
+  .petal svg{ width:var(--sz); height:var(--sz); opacity:.55; }
+  @keyframes petalFall{
+    0%  { transform:translateX(0) rotate(0deg) translateY(0); }
+    25% { transform:translateX(30px) rotate(60deg) translateY(25vh); }
+    50% { transform:translateX(-25px) rotate(130deg) translateY(50vh); }
+    75% { transform:translateX(20px) rotate(220deg) translateY(75vh); }
+    100%{ transform:translateX(-10px) rotate(360deg) translateY(110vh); }
+  }
+
+  /* ─── PAGE LAYOUT ─── */
+  .page{
+    position:relative; z-index:2;
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:4rem 1.5rem; text-align:center;
+  }
+
+  /* staggered reveal */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1);}
+  .reveal.show{opacity:1;transform:translateY(0);}
+  .d1{transition-delay:.1s}.d2{transition-delay:.35s}.d3{transition-delay:.6s}.d4{transition-delay:.85s}.d5{transition-delay:1.15s}.d6{transition-delay:1.5s}
+
+  /* ─── FLOWER CROWN ICON ─── */
+  .icon-wrap{margin-bottom:1.6rem;}
+  .flower-icon{
+    width:72px;height:72px;
+    animation:gentleBob 3s ease-in-out infinite;
+  }
+  @keyframes gentleBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+  /* ─── FROM TAG ─── */
+  .from-tag{
+    display:inline-block;
+    background:var(--blush); color:var(--rose);
+    padding:.35rem 1rem; border-radius:20px;
+    font-size:.74rem; font-weight:500; letter-spacing:1.4px;
+    text-transform:uppercase; margin-bottom:1.2rem;
+  }
+
+  /* ─── HEADLINE ─── */
+  .headline{
+    font-family:'Lora',serif;
+    font-size:clamp(2.2rem,5.8vw,3.6rem);
+    font-weight:400; line-height:1.2; color:var(--ink);
+    max-width:600px;
+  }
+  .headline em{font-style:italic;color:var(--rose);font-weight:600;}
+
+  /* ─── ELEGANT RULE ─── */
+  .rule{
+    width:80px; height:2px; margin:1.8rem auto;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    position:relative;
+  }
+  .rule::before{
+    content:'✿'; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    background:var(--paper); padding:0 .6rem;
+    color:var(--rose); font-size:.88rem;
+  }
+
+  /* ─── MESSAGE CARD ─── */
+  .msg-card{
+    max-width:500px; margin:0 auto;
+    background:#fff; border-radius:18px;
+    padding:2.2rem 2.4rem;
+    box-shadow:0 4px 30px rgba(59,47,42,.06);
+    border:1px solid rgba(196,113,122,.14);
+    position:relative;
+  }
+  .msg-card::before{
+    content:''; position:absolute;
+    top:0;left:0;right:0; height:3px;
+    background:linear-gradient(90deg,var(--blush),var(--rose),var(--blush));
+    border-radius:18px 18px 0 0;
+  }
+  .msg-card p{
+    font-family:'Lora',serif; font-size:1.08rem;
+    font-style:italic; line-height:1.8;
+    color:rgba(59,47,42,.72);
+  }
+
+  /* ─── QUESTION ─── */
+  .question{
+    font-family:'Lora',serif;
+    font-size:clamp(1.6rem,4vw,2.2rem);
+    font-weight:600; color:var(--ink);
+    margin:2rem 0 .8rem;
+  }
+  .question .name{color:var(--rose);font-style:italic;}
+  .question .hl{color:var(--rose);}
+
+  /* ─── BUTTONS ─── */
+  .buttons{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;}
+  .btn{
+    padding:.9rem 2.2rem; border-radius:50px; border:none;
+    font-family:'Raleway',sans-serif; font-size:.88rem;
+    font-weight:500; letter-spacing:1.6px; text-transform:uppercase;
+    cursor:pointer; transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-yes{
+    background:var(--rose); color:#fff;
+    box-shadow:0 4px 18px rgba(196,113,122,.35);
+  }
+  .btn-yes:hover{box-shadow:0 8px 28px rgba(196,113,122,.45);}
+  .btn-no{
+    background:transparent; color:rgba(59,47,42,.35);
+    border:1.5px solid rgba(59,47,42,.18)!important;
+    transition:transform .35s cubic-bezier(.22,1,.36,1),color .3s,border-color .3s;
+  }
+  .btn-no:hover{color:rgba(59,47,42,.55);border-color:rgba(59,47,42,.35)!important;}
+
+  /* ─── RESULTS ─── */
+  .result{display:none;text-align:center;max-width:520px;margin:0 auto;}
+  .result.show{display:block;animation:fadeUp .7s cubic-bezier(.22,1,.36,1) both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  .result-yes .heart-burst{font-size:3.8rem;display:block;margin-bottom:1rem;animation:pop .5s cubic-bezier(.22,1,.36,1) .15s both;}
+  @keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+  .result-yes h2{font-family:'Lora',serif;font-size:2.2rem;color:var(--rose);margin-bottom:.6rem;font-weight:600;}
+  .result-yes p{font-family:'Lora',serif;font-size:1.05rem;font-style:italic;color:rgba(59,47,42,.6);line-height:1.7;}
+
+  .result-no .sad{font-size:2.8rem;display:block;margin-bottom:1rem;}
+  .result-no h2{font-family:'Lora',serif;font-size:2rem;color:rgba(59,47,42,.5);margin-bottom:.5rem;}
+  .result-no p{font-family:'Lora',serif;font-size:1rem;font-style:italic;color:rgba(59,47,42,.5);line-height:1.7;}
+
+  /* confetti (soft pastels) */
+  .confetti-container{position:relative;height:80px;overflow:visible;margin-bottom:.5rem;}
+  .conf{position:absolute;top:50%;left:50%;width:8px;height:8px;border-radius:50%;animation:confOut 2s ease-out forwards;animation-delay:var(--del);}
+  @keyframes confOut{0%{transform:translate(0,0) rotate(0deg);opacity:1}100%{transform:translate(var(--tx),var(--ty)) rotate(var(--rot));opacity:0}}
+
+  .share-row{margin-top:1.8rem;}
+  .share-btn{padding:.5rem 1.2rem;border-radius:20px;border:1px solid rgba(59,47,42,.18);background:transparent;color:rgba(59,47,42,.5);font-family:inherit;font-size:.78rem;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:color .3s,border-color .3s;}
+  .share-btn:hover{color:var(--ink);border-color:rgba(59,47,42,.4);}
+
+  .signature{position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);font-size:.66rem;letter-spacing:2px;text-transform:uppercase;color:rgba(59,47,42,.2);z-index:3;white-space:nowrap;}
+</style>
+</head>
+<body>
+<!-- watercolor blobs -->
+<div class="wc-blob wc-1"></div><div class="wc-blob wc-2"></div>
+<div class="wc-blob wc-3"></div><div class="wc-blob wc-4"></div>
+
+<!-- falling petals (injected by JS) -->
+
+<div class="page" id="mainPage">
+  <!-- flower icon -->
+  <div class="reveal d1 icon-wrap">
+    <svg class="flower-icon" viewBox="0 0 72 72" fill="none">
+      <!-- petals -->
+      <ellipse cx="36" cy="18" rx="7" ry="14" fill="rgba(196,113,122,.35)" transform="rotate(0 36 36)"/>
+      <ellipse cx="36" cy="18" rx="7" ry="14" fill="rgba(196,113,122,.28)" transform="rotate(45 36 36)"/>
+      <ellipse cx="36" cy="18" rx="7" ry="14" fill="rgba(196,113,122,.22)" transform="rotate(90 36 36)"/>
+      <ellipse cx="36" cy="18" rx="7" ry="14" fill="rgba(196,113,122,.32)" transform="rotate(135 36 36)"/>
+      <ellipse cx="36" cy="18" rx="7" ry="14" fill="rgba(196,113,122,.25)" transform="rotate(180 36 36)"/>
+      <ellipse cx="36" cy="18" rx="7" ry="14" fill="rgba(196,113,122,.30)" transform="rotate(225 36 36)"/>
+      <ellipse cx="36" cy="18" rx="7" ry="14" fill="rgba(196,113,122,.20)" transform="rotate(270 36 36)"/>
+      <ellipse cx="36" cy="18" rx="7" ry="14" fill="rgba(196,113,122,.27)" transform="rotate(315 36 36)"/>
+      <circle cx="36" cy="36" r="6" fill="rgba(184,149,106,.7)"/>
+    </svg>
+  </div>
+
+  <div class="reveal d2 from-tag">A note from <strong id="senderNameEl">Alex</strong></div>
+
+  <h1 class="reveal d3 headline">
+    Dear <em id="partnerNameEl">Jordan</em>,<br>
+    I have a question<br>close to my heart…
+  </h1>
+
+  <div class="reveal d4 rule"></div>
+
+  <div class="reveal d5 msg-card">
+    <p id="personalMessage">From the very first moment I saw you, I knew there was something extraordinary about you. Every day with you feels like the most beautiful adventure. You make my ordinary moments feel like magic — and I don't want to spend this Valentine's Day with anyone else.</p>
+  </div>
+
+  <p class="reveal d5 question">
+    So tell me, <span class="name" id="partnerNameQ">Jordan</span>…<br>
+    will you be my <span class="hl">Valentine?</span>
+  </p>
+
+  <div class="reveal d6 buttons">
+    <button class="btn btn-yes" onclick="answer('yes')">Yes, always ✓</button>
+    <button class="btn btn-no" id="noBtn" onmouseenter="wiggleNo()" onclick="answer('no')">No…</button>
+  </div>
+</div>
+
+<!-- YES -->
+<div class="result result-yes" id="resultYes">
+  <div class="confetti-container" id="confContainer"></div>
+  <span class="heart-burst">🌸</span>
+  <h2>You said Yes!</h2>
+  <p><strong id="senderNameRes">Alex</strong> is going to be overjoyed.<br>What a beautiful Valentine's Day this will be.</p>
+  <div class="share-row"><button class="share-btn" onclick="shareThis()">Share this moment</button></div>
+</div>
+<!-- NO -->
+<div class="result result-no" id="resultNo">
+  <span class="sad">🥀</span>
+  <h2>Oh…</h2>
+  <p><strong id="senderNameResNo">Alex</strong> will understand.<br>Perhaps another time. 💛</p>
+</div>
+
+<div class="signature">WhisperYes · Made with love</div>
+
+<script>
+const CONFIG={senderName:"Alex",partnerName:"Jordan",message:"From the very first moment I saw you, I knew there was something extraordinary about you. Every day with you feels like the most beautiful adventure. You make my ordinary moments feel like magic — and I don't want to spend this Valentine's Day with anyone else."};
+document.getElementById('senderNameEl').textContent=CONFIG.senderName;
+document.getElementById('partnerNameEl').textContent=CONFIG.partnerName;
+document.getElementById('partnerNameQ').textContent=CONFIG.partnerName;
+document.getElementById('personalMessage').textContent=CONFIG.message;
+document.getElementById('senderNameRes').textContent=CONFIG.senderName;
+document.getElementById('senderNameResNo').textContent=CONFIG.senderName;
+
+/* reveal on load */
+window.addEventListener('load',()=>document.querySelectorAll('.reveal').forEach(e=>e.classList.add('show')));
+
+/* ─── FALLING PETALS ─── */
+(function spawnPetals(){
+  const petalSVGs=[
+    `<svg viewBox="0 0 30 50" fill="none"><ellipse cx="15" cy="25" rx="10" ry="22" fill="rgba(196,113,122,.4)" transform="rotate(-8 15 25)"/></svg>`,
+    `<svg viewBox="0 0 24 40" fill="none"><ellipse cx="12" cy="20" rx="7" ry="18" fill="rgba(240,196,200,.6)" transform="rotate(5 12 20)"/></svg>`,
+    `<svg viewBox="0 0 28 44" fill="none"><ellipse cx="14" cy="22" rx="9" ry="20" fill="rgba(184,149,106,.3)" transform="rotate(-3 14 22)"/></svg>`,
+    `<svg viewBox="0 0 20 36" fill="none"><ellipse cx="10" cy="18" rx="6" ry="16" fill="rgba(196,113,122,.25)"/></svg>`,
+  ];
+  for(let i=0;i<12;i++){
+    const p=document.createElement('div');
+    p.className='petal';
+    const sz=20+Math.random()*22;
+    p.style.setProperty('--sz',sz+'px');
+    p.style.left=(Math.random()*100)+'%';
+    p.style.setProperty('--dur',(7+Math.random()*6)+'s');
+    p.style.setProperty('--del',(Math.random()*8)+'s');
+    p.innerHTML=petalSVGs[i%petalSVGs.length];
+    document.body.appendChild(p);
+  }
+})();
+
+/* ─── NO BUTTON WIGGLE ─── */
+let noCount=0;
+function wiggleNo(){
+  noCount++;
+  const b=document.getElementById('noBtn');
+  const sc=Math.max(.5,1-noCount*.08);
+  const tx=(Math.random()-.5)*140;
+  const ty=(Math.random()-.5)*55;
+  b.style.transition='transform .35s cubic-bezier(.22,1,.36,1)';
+  b.style.transform=`translate(${tx}px,${ty}px) scale(${sc})`;
+  setTimeout(()=>{b.style.transform=`scale(${sc})`;},380);
+}
+
+/* ─── ANSWER ─── */
+function answer(c){
+  document.getElementById('mainPage').style.opacity='0';
+  document.getElementById('mainPage').style.transition='opacity .4s';
+  setTimeout(()=>{
+    document.getElementById('mainPage').style.display='none';
+    c==='yes'?showYes():showNo();
+  },420);
+}
+function showYes(){
+  document.getElementById('resultYes').classList.add('show');
+  spawnConfetti();
+}
+function showNo(){
+  document.getElementById('resultNo').classList.add('show');
+}
+function spawnConfetti(){
+  const w=document.getElementById('confContainer');
+  const cols=['#f0c4c8','#c4717a','#b8956a','#a3b899','#fff','#f5ddd8'];
+  for(let i=0;i<32;i++){
+    const c=document.createElement('div');c.className='conf';
+    const a=(Math.PI*2/32)*i+(Math.random()-.5)*.5;
+    const d=50+Math.random()*80;
+    c.style.background=cols[i%cols.length];
+    c.style.setProperty('--tx',Math.cos(a)*d+'px');
+    c.style.setProperty('--ty',Math.sin(a)*d+'px');
+    c.style.setProperty('--rot',(Math.random()*720-360)+'deg');
+    c.style.setProperty('--del',(Math.random()*.2)+'s');
+    if(i%4===0){c.style.borderRadius='2px';c.style.width='5px';c.style.height='10px';}
+    w.appendChild(c);
+  }
+}
+function shareThis(){
+  if(navigator.share)navigator.share({title:'I said Yes!',text:`${CONFIG.partnerName} said YES!`,url:window.location.href}).catch(()=>{});
+  else navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!'));
+}
+</script>
+</body>
+</html>
