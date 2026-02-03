@@ -6,657 +6,62 @@
 <title>WhisperYes — Valentine's Proposals</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
-  :root {
-    --cream: #faf7f2;
-    --ink: #2c2420;
-    --blush: #e8a8a0;
-    --rose: #c75b6a;
-    --gold: #c9a86c;
-    --soft: #f0e6df;
-    --mist: rgba(199,91,106,.12);
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    overflow-x: hidden;
-    min-height: 100vh;
-  }
-
-  /* ─── NAV ─── */
-  nav {
-    position: fixed; top:0; left:0; width:100%; z-index:100;
-    padding: 1.4rem 2rem;
-    display: flex; align-items:center; justify-content:space-between;
-    background: rgba(250,247,242,.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(201,168,108,.18);
-  }
-  .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem; font-weight:600; color: var(--rose);
-    letter-spacing: -.5px;
-  }
-  .logo em { font-style:italic; color: var(--gold); }
-  nav a {
-    text-decoration:none; color: var(--ink); font-size:.88rem;
-    font-weight:500; letter-spacing:.4px; text-transform:uppercase;
-    transition: color .3s;
-  }
-  nav a:hover { color: var(--rose); }
-
-  /* ─── HERO ─── */
-  .hero {
-    min-height: 100vh;
-    display: flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; padding: 6rem 1.5rem 4rem;
-    position: relative;
-  }
-
-  /* floating petals */
-  .petal {
-    position:absolute; opacity:.25; pointer-events:none;
-    font-size:1.8rem; animation: drift 8s ease-in-out infinite;
-  }
-  .petal:nth-child(1) { top:12%; left:8%; animation-delay:0s; font-size:1.4rem; }
-  .petal:nth-child(2) { top:20%; right:12%; animation-delay:1.2s; font-size:2rem; }
-  .petal:nth-child(3) { top:60%; left:5%; animation-delay:2.5s; font-size:1.6rem; }
-  .petal:nth-child(4) { top:75%; right:6%; animation-delay:3.8s; font-size:1.2rem; }
-  .petal:nth-child(5) { top:40%; right:4%; animation-delay:0.8s; font-size:1rem; }
-  .petal:nth-child(6) { top:85%; left:18%; animation-delay:4.5s; font-size:1.5rem; }
-
-  @keyframes drift {
-    0%,100% { transform: translateY(0) rotate(0deg); }
-    40% { transform: translateY(-18px) rotate(8deg); }
-    70% { transform: translateY(10px) rotate(-5deg); }
-  }
-
-  /* ambient glow */
-  .hero::before {
-    content:''; position:absolute;
-    width:520px; height:520px; border-radius:50%;
-    background: radial-gradient(circle, rgba(199,91,106,.1) 0%, transparent 70%);
-    top:50%; left:50%; transform:translate(-50%,-50%);
-    pointer-events:none; filter:blur(40px);
-  }
-
-  .hero-badge {
-    display:inline-block;
-    background: var(--mist);
-    border: 1px solid rgba(199,91,106,.25);
-    border-radius: 50px;
-    padding: .45rem 1.1rem;
-    font-size: .78rem; font-weight:500; letter-spacing:.8px;
-    text-transform:uppercase; color: var(--rose);
-    margin-bottom: 1.8rem;
-    position:relative; z-index:1;
-  }
-
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.8rem, 7vw, 5.2rem);
-    font-weight:600; line-height:1.08;
-    color: var(--ink);
-    position:relative; z-index:1;
-    max-width: 720px;
-  }
-  .hero h1 em {
-    font-style:italic; color: var(--rose);
-  }
-  .hero h1 .gold { color: var(--gold); font-style:italic; }
-
-  .hero-sub {
-    margin-top:1.6rem; max-width:500px;
-    font-size:1.05rem; color: rgba(44,36,32,.6);
-    line-height:1.6; position:relative; z-index:1;
-    font-weight:300;
-  }
-
-  .hero-cta {
-    margin-top: 2.6rem; position:relative; z-index:1;
-  }
-  .btn-primary {
-    display:inline-flex; align-items:center; gap:.5rem;
-    background: var(--rose); color:#fff;
-    padding: .95rem 2.2rem; border-radius:50px;
-    text-decoration:none; font-size:.95rem; font-weight:500;
-    border:none; cursor:pointer;
-    box-shadow: 0 4px 24px rgba(199,91,106,.35);
-    transition: transform .25s, box-shadow .25s;
-    letter-spacing:.3px;
-  }
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(199,91,106,.45);
-  }
-  .btn-primary .arrow { font-size:1.1rem; transition: transform .3s; }
-  .btn-primary:hover .arrow { transform: translateX(4px); }
-
-  .hero-note {
-    margin-top:1rem; font-size:.8rem; color:rgba(44,36,32,.4);
-    position:relative; z-index:1;
-  }
-
-  /* ─── HOW IT WORKS ─── */
-  .section { padding: 7rem 1.5rem; }
-  .section-label {
-    text-align:center;
-    font-size:.75rem; letter-spacing:2px; text-transform:uppercase;
-    color: var(--gold); font-weight:500; margin-bottom:.8rem;
-  }
-  .section-title {
-    text-align:center;
-    font-family:'Playfair Display',serif;
-    font-size:clamp(1.9rem,4vw,2.7rem);
-    font-weight:600; margin-bottom:1rem;
-  }
-  .section-sub {
-    text-align:center; max-width:520px; margin:0 auto;
-    color:rgba(44,36,32,.55); font-size:.97rem; line-height:1.6;
-    font-weight:300;
-  }
-
-  .steps {
-    display:flex; justify-content:center; flex-wrap:wrap; gap:2rem;
-    max-width:960px; margin:3.6rem auto 0;
-  }
-  .step {
-    flex:1 1 240px; max-width:280px;
-    text-align:center; padding:2rem 1.2rem;
-    position:relative;
-  }
-  .step-num {
-    width:52px; height:52px; border-radius:50%;
-    background: var(--soft); border:2px solid var(--blush);
-    display:flex; align-items:center; justify-content:center;
-    margin:0 auto 1.2rem;
-    font-family:'Playfair Display',serif;
-    font-size:1.3rem; font-weight:600; color:var(--rose);
-  }
-  .step h3 { font-size:1.05rem; font-weight:600; margin-bottom:.5rem; }
-  .step p { font-size:.88rem; color:rgba(44,36,32,.55); line-height:1.55; font-weight:300; }
-
-  /* connector dots */
-  .step:not(:last-child)::after {
-    content:'···';
-    position:absolute; right:-1rem; top:1.8rem;
-    font-size:1.4rem; color:var(--blush); letter-spacing:2px;
-  }
-
-  /* ─── PRICING ─── */
-  .pricing-wrap {
-    max-width:680px; margin: 3.8rem auto 0;
-    background:#fff; border-radius:24px;
-    border:1px solid rgba(201,168,108,.2);
-    box-shadow: 0 8px 40px rgba(44,36,32,.06);
-    padding: 2.8rem 2.2rem;
-    text-align:center; position:relative; overflow:hidden;
-  }
-  .pricing-wrap::before {
-    content:''; position:absolute; top:0; left:0; right:0; height:4px;
-    background: linear-gradient(90deg, var(--blush), var(--rose), var(--gold));
-  }
-  .price-tag {
-    font-family:'Playfair Display',serif;
-    font-size:3.2rem; font-weight:600; color:var(--rose);
-  }
-  .price-tag sup { font-size:1.6rem; vertical-align:super; }
-  .price-tag sub { font-size:.95rem; font-weight:400; color:rgba(44,36,32,.45); vertical-align:baseline; }
-  .price-perks {
-    margin: 1.4rem 0 2rem;
-    list-style:none;
-  }
-  .price-perks li {
-    padding:.38rem 0; font-size:.92rem; color:rgba(44,36,32,.6);
-    font-weight:300;
-  }
-  .price-perks li::before {
-    content:'✓ '; color:var(--rose); font-weight:600;
-  }
-
-  /* ─── STYLE PICKER GRID ─── */
-  .style-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1.2rem;
-    max-width: 1060px;
-    margin: 2.8rem auto 0;
-  }
-  .style-card {
-    background:#fff; border-radius:18px;
-    border:2px solid rgba(201,168,108,.15);
-    overflow:hidden; cursor:pointer;
-    transition: border-color .3s, box-shadow .3s, transform .25s;
-    position:relative;
-  }
-  .style-card:hover {
-    border-color: rgba(199,91,106,.35);
-    box-shadow: 0 6px 28px rgba(199,91,106,.1);
-    transform: translateY(-3px);
-  }
-  .style-card.active {
-    border-color: var(--rose);
-    box-shadow: 0 4px 22px rgba(199,91,106,.18);
-  }
-
-  /* check badge */
-  .style-check {
-    display:none; position:absolute; top:10px; right:10px;
-    width:24px; height:24px; border-radius:50%;
-    background:var(--rose); color:#fff;
-    font-size:.75rem; display:none;
-    align-items:center; justify-content:center;
-    font-weight:600;
-  }
-  .style-card.active .style-check { display:flex; }
-
-  /* preview box */
-  .style-preview {
-    height:130px; display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    position:relative; overflow:hidden;
-  }
-  .style-preview .sp-txt {
-    font-size:.78rem; position:relative; z-index:1;
-    font-weight:300; text-align:center; line-height:1.4;
-  }
-
-  /* ── Midnight preview ── */
-  .sp-midnight {
-    background: linear-gradient(160deg, #0e0a0d 0%, #1a1218 100%);
-  }
-  .sp-stars {
-    position:absolute; inset:0; pointer-events:none;
-  }
-  .sp-midnight .sp-txt { color:rgba(245,239,232,.7); }
-  .sp-env { font-size:1.6rem; margin-bottom:.4rem; position:relative; z-index:1; filter:drop-shadow(0 0 6px rgba(212,116,122,.5)); }
-
-  /* ── Parisian preview ── */
-  .sp-parisian {
-    background: linear-gradient(150deg, #faf6f0 0%, #f0e6df 100%);
-  }
-  .sp-parisian .sp-txt { color:rgba(59,47,42,.6); }
-  .sp-petals { font-size:1rem; opacity:.6; margin-bottom:.3rem; position:relative; z-index:1; letter-spacing:4px; }
-  .sp-card-icon { font-size:1.4rem; position:relative; z-index:1; }
-
-  /* ── Retro preview ── */
-  .sp-retro {
-    background: #fef5e0;
-    background-image: radial-gradient(circle, rgba(212,43,43,.07) 1px, transparent 1px);
-    background-size: 14px 14px;
-  }
-  .sp-heart-big { font-size:2rem; color:#d42b2b; position:relative; z-index:1; filter:drop-shadow(2px 2px 0 rgba(26,39,68,.2)); }
-  .sp-retro-txt { color:#2a1810; font-weight:700; font-size:.72rem!important; letter-spacing:2px; text-transform:uppercase; }
-
-  /* ── Typewriter preview ── */
-  .sp-typewriter {
-    background: #f0ebe3;
-    background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 18px, rgba(44,35,25,.06) 18px, rgba(44,35,25,.06) 19px);
-    align-items:flex-start; padding:1rem 1.2rem;
-  }
-  .sp-date { font-size:.66rem; color:rgba(44,35,25,.4); font-style:italic; margin-bottom:.4rem; }
-  .sp-tw-txt { color:#2c2319; font-size:.8rem!important; font-family:'Special Elite',cursive; text-align:left!important; line-height:1.6; }
-
-  /* ── Constellation preview ── */
-  .sp-constellation {
-    background: linear-gradient(160deg, #07101e 0%, #0d1b30 100%);
-  }
-  .sp-const-stars { position:absolute; inset:0; pointer-events:none; }
-  .sp-cs { position:absolute; color:#d4a94c; }
-  .sp-cs-1 { top:22%; left:28%; font-size:.8rem; opacity:.8; }
-  .sp-cs-2 { top:35%; left:45%; font-size:.55rem; opacity:.5; }
-  .sp-cs-3 { top:28%; right:35%; font-size:.6rem; opacity:.55; }
-  .sp-cs-4 { top:20%; right:22%; font-size:.75rem; opacity:.75; }
-  .sp-const-txt { color:rgba(168,184,200,.7); font-size:.76rem!important; letter-spacing:2px; text-transform:uppercase; position:relative; z-index:1; }
-
-  /* info */
-  .style-info { padding:1rem 1.1rem 1.1rem; }
-  .style-info h4 { font-size:.9rem; font-weight:600; margin-bottom:.25rem; color:var(--ink); }
-  .style-info p { font-size:.78rem; color:rgba(44,36,32,.5); line-height:1.45; font-weight:300; }
-
-  @media(max-width:540px){
-    .style-grid { grid-template-columns:1fr; max-width:380px; }
-  }
-
-  /* ─── STYLE PICKER GRID ─── */
-  .form-section {
-    background: linear-gradient(135deg, var(--soft) 0%, #fff 50%, var(--soft) 100%);
-    border-top:1px solid rgba(201,168,108,.15);
-    border-bottom:1px solid rgba(201,168,108,.15);
-  }
-  .form-wrap {
-    max-width:580px; margin:3.2rem auto 0;
-    background:#fff; border-radius:24px;
-    border:1px solid rgba(201,168,108,.2);
-    box-shadow: 0 12px 48px rgba(44,36,32,.08);
-    padding: 2.8rem 2.4rem;
-  }
-  .form-wrap h3 {
-    font-family:'Playfair Display',serif;
-    font-size:1.55rem; margin-bottom:.4rem; text-align:center;
-  }
-  .form-wrap > p {
-    text-align:center; font-size:.85rem; color:rgba(44,36,32,.5);
-    margin-bottom:2rem; font-weight:300;
-  }
-
-  .form-group { margin-bottom:1.3rem; }
-  .form-group label {
-    display:block; font-size:.78rem; font-weight:500;
-    letter-spacing:.5px; text-transform:uppercase;
-    color:rgba(44,36,32,.55); margin-bottom:.45rem;
-  }
-  .form-group input, .form-group textarea {
-    width:100%; padding:.82rem 1rem;
-    border:1.5px solid rgba(201,168,108,.3);
-    border-radius:12px; font-family:inherit;
-    font-size:.94rem; background:#fdfcfb;
-    transition: border-color .25s, box-shadow .25s;
-    color:var(--ink);
-  }
-  .form-group input:focus, .form-group textarea:focus {
-    outline:none; border-color: var(--rose);
-    box-shadow: 0 0 0 3px rgba(199,91,106,.1);
-  }
-  .form-group textarea { resize:vertical; min-height:80px; }
-
-  .form-row { display:flex; gap:1rem; }
-  .form-row .form-group { flex:1; }
-
-  .form-note {
-    font-size:.76rem; color:rgba(44,36,32,.4);
-    margin-top:.55rem; text-align:center;
-    font-style:italic;
-  }
-
-  .btn-submit {
-    width:100%; margin-top:.6rem;
-    padding:1rem; background:var(--rose); color:#fff;
-    border:none; border-radius:12px;
-    font-family:inherit; font-size:1rem; font-weight:500;
-    cursor:pointer; letter-spacing:.3px;
-    box-shadow: 0 4px 20px rgba(199,91,106,.3);
-    transition: transform .2s, box-shadow .2s;
-  }
-  .btn-submit:hover {
-    transform:translateY(-1px);
-    box-shadow: 0 6px 28px rgba(199,91,106,.4);
-  }
-
-  /* success state */
-  .success-state { display:none; text-align:center; padding:1.5rem 0; }
-  .success-state.visible { display:block; animation: fadeIn .5s ease; }
-  .success-icon { font-size:3rem; margin-bottom:1rem; }
-  .success-state h4 {
-    font-family:'Playfair Display',serif;
-    font-size:1.4rem; margin-bottom:.5rem; color:var(--rose);
-  }
-  .success-state p { font-size:.9rem; color:rgba(44,36,32,.55); line-height:1.6; font-weight:300; }
-
-  @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
-
-  /* ─── TRUST / SOCIAL ─── */
-  .trust { text-align:center; }
-  .trust-items {
-    display:flex; justify-content:center; flex-wrap:wrap; gap:2.5rem;
-    max-width:800px; margin:2.5rem auto 0;
-  }
-  .trust-item { flex:1 1 180px; max-width:220px; }
-  .trust-item .icon { font-size:1.8rem; margin-bottom:.6rem; }
-  .trust-item h4 { font-size:.95rem; font-weight:600; margin-bottom:.3rem; }
-  .trust-item p { font-size:.82rem; color:rgba(44,36,32,.5); font-weight:300; line-height:1.5; }
-
-  /* ─── FOOTER ─── */
-  footer {
-    text-align:center; padding:3rem 1.5rem;
-    border-top:1px solid rgba(201,168,108,.15);
-  }
-  footer .logo { font-size:1.2rem; margin-bottom:.5rem; }
-  footer p { font-size:.8rem; color:rgba(44,36,32,.4); }
-
-  /* ─── RESPONSIVE ─── */
-  @media(max-width:600px){
-    .step:not(:last-child)::after { display:none; }
-    .form-row { flex-direction:column; gap:0; }
-    .pricing-wrap, .form-wrap { padding:2rem 1.3rem; }
-  }
+  /* ... (keep all original styles from your provided index.html) ... */
 </style>
+<!-- EmailJS Script -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 </head>
 <body>
+  <!-- ... (keep all original HTML structure from your provided index.html, including nav, hero, how it works, pricing, styles, form, trust, footer) ... -->
 
-<!-- NAV -->
-<nav>
-  <div class="logo">Whisper<em>Yes</em></div>
-  <a href="#how">How it works</a>
-</nav>
+  <!-- FORM (modified slightly, no changes to fields) -->
+  <section class="section form-section" id="create">
+    <div class="section-label">Get Started</div>
+    <h2 class="section-title">Make it happen</h2>
+    <p class="section-sub">Fill in the details below and we'll handle everything else.</p>
 
-<!-- HERO -->
-<section class="hero">
-  <!-- petals -->
-  <span class="petal">🌸</span>
-  <span class="petal">🌷</span>
-  <span class="petal">🌸</span>
-  <span class="petal">🌷</span>
-  <span class="petal">🪻</span>
-  <span class="petal">🌹</span>
+    <div class="form-wrap">
+      <h3>Your Valentine's Details</h3>
+      <p>All info is kept private and only used to create your page.</p>
 
-  <div class="hero-badge">💌 Valentine's 2026</div>
-  <h1>The most <em>beautiful</em> way to ask <span class="gold">Will you be mine?</span></h1>
-  <p class="hero-sub">We craft a stunning, interactive love letter page — personalized just for your partner. All you do is fill in the details. We handle the magic.</p>
-  <div class="hero-cta">
-    <a href="#create" class="btn-primary">Start Your Proposal <span class="arrow">→</span></a>
-  </div>
-  <p class="hero-note">Takes less than 2 minutes · Done in hours</p>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="section" id="how">
-  <div class="section-label">The Process</div>
-  <h2 class="section-title">Simple as breathing</h2>
-  <p class="section-sub">Three effortless steps stand between you and the most memorable Valentine's moment ever.</p>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>Tell us your story</h3>
-      <p>Share your names, a short personal message, and your partner's email. That's it.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>We craft the magic</h3>
-      <p>Our team designs a gorgeous, interactive one-page love letter — unique every time.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>Send & celebrate</h3>
-      <p>Your partner receives the link, experiences the surprise, and their answer comes straight to you.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="section" style="padding-top:1rem;">
-  <div class="section-label">Pricing</div>
-  <h2 class="section-title">One price. All the love.</h2>
-  <p class="section-sub">No hidden fees. Everything included.</p>
-
-  <div class="pricing-wrap">
-    <div class="price-tag"><sup>$</sup>9.99<sub> one-time</sub></div>
-    <ul class="price-perks">
-      <li>A fully custom, interactive Valentine's page</li>
-      <li>Personalized message woven into the design</li>
-      <li>Beautiful Yes / No reveal experience</li>
-      <li>Email delivery to your partner with the link</li>
-      <li>You get notified instantly of their answer</li>
-      <li>Stays live for 30 days</li>
-    </ul>
-    <a href="#create" class="btn-primary" style="font-size:1rem; padding:1rem 2.6rem;">Create Mine Now <span class="arrow">→</span></a>
-  </div>
-</section>
-
-<!-- STYLE PICKER -->
-<section class="section" style="padding-top:1rem;" id="styles">
-  <div class="section-label">Choose Your Style</div>
-  <h2 class="section-title">Five ways to say <em style="font-style:italic;color:var(--rose);">I love you</em></h2>
-  <p class="section-sub">Each design is a completely different mood. Pick the one that feels like you two.</p>
-
-  <div class="style-grid">
-
-    <div class="style-card active" data-style="midnight" onclick="pickStyle(this)">
-      <div class="style-preview sp-midnight">
-        <div class="sp-stars"></div>
-        <div class="sp-env">✉</div>
-        <div class="sp-txt">A message for you…</div>
-      </div>
-      <div class="style-info">
-        <h4>🌙 Midnight Garden</h4>
-        <p>Dark, cinematic, dreamy. Stars, a glowing envelope, floating hearts.</p>
-      </div>
-      <div class="style-check">✓</div>
-    </div>
-
-    <div class="style-card" data-style="parisian" onclick="pickStyle(this)">
-      <div class="style-preview sp-parisian">
-        <div class="sp-petals">🌸 🌷 🌸</div>
-        <div class="sp-card-icon">💐</div>
-        <div class="sp-txt">Dear Jordan…</div>
-      </div>
-      <div class="style-info">
-        <h4>🌸 Parisian Watercolor</h4>
-        <p>Bright, airy, romantic. Falling petals, warm cream tones, soft elegance.</p>
-      </div>
-      <div class="style-check">✓</div>
-    </div>
-
-    <div class="style-card" data-style="retro" onclick="pickStyle(this)">
-      <div class="style-preview sp-retro">
-        <div class="sp-heart-big">♥</div>
-        <div class="sp-txt sp-retro-txt">BE MY VALENTINE!</div>
-      </div>
-      <div class="style-info">
-        <h4>❤️ Retro Valentine</h4>
-        <p>Bold, playful, vintage. 50s charm, punchy reds, halftone dots, fun energy.</p>
-      </div>
-      <div class="style-check">✓</div>
-    </div>
-
-    <div class="style-card" data-style="typewriter" onclick="pickStyle(this)">
-      <div class="style-preview sp-typewriter">
-        <div class="sp-date">February 14, 2026</div>
-        <div class="sp-txt sp-tw-txt">Dear Jordan,<br><span style="opacity:.5">I've been thinking…</span></div>
-      </div>
-      <div class="style-info">
-        <h4>📜 Typewriter Letter</h4>
-        <p>Minimal, literary, intimate. Paper texture, ink blots, a handwritten feel.</p>
-      </div>
-      <div class="style-check">✓</div>
-    </div>
-
-    <div class="style-card" data-style="constellation" onclick="pickStyle(this)">
-      <div class="style-preview sp-constellation">
-        <div class="sp-const-stars">
-          <span class="sp-cs sp-cs-1">★</span>
-          <span class="sp-cs sp-cs-2">·</span>
-          <span class="sp-cs sp-cs-3">·</span>
-          <span class="sp-cs sp-cs-4">★</span>
-        </div>
-        <div class="sp-txt sp-const-txt">Our Constellation</div>
-      </div>
-      <div class="style-info">
-        <h4>✨ Constellation</h4>
-        <p>Ethereal, celestial, unique. Names as stars, a live-drawn constellation connecting you.</p>
-      </div>
-      <div class="style-check">✓</div>
-    </div>
-
-  </div>
-</section>
-
-<!-- FORM -->
-<section class="section form-section" id="create">
-  <div class="section-label">Get Started</div>
-  <h2 class="section-title">Make it happen</h2>
-  <p class="section-sub">Fill in the details below and we'll handle everything else.</p>
-
-  <div class="form-wrap">
-    <h3>Your Valentine's Details</h3>
-    <p>All info is kept private and only used to create your page.</p>
-
-    <!-- FORM -->
-    <div id="formBlock">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Your Name</label>
-          <input type="text" placeholder="e.g. Alex" id="senderName" />
+      <!-- FORM -->
+      <div id="formBlock">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="e.g. Alex" id="senderName" />
+          </div>
+          <div class="form-group">
+            <label>Partner's Name</label>
+            <input type="text" placeholder="e.g. Jordan" id="partnerName" />
+          </div>
         </div>
         <div class="form-group">
-          <label>Partner's Name</label>
-          <input type="text" placeholder="e.g. Jordan" id="partnerName" />
+          <label>Partner's Email</label>
+          <input type="email" placeholder="jordan@email.com" id="partnerEmail" />
         </div>
+        <div class="form-group">
+          <label>Your Email (to receive their answer)</label>
+          <input type="email" placeholder="alex@email.com" id="senderEmail" />
+        </div>
+        <div class="form-group">
+          <label>A Personal Message (optional)</label>
+          <textarea placeholder="Something sweet only they would understand…" id="message"></textarea>
+        </div>
+        <p class="form-note">💳 You'll be taken to a secure payment page after submitting.</p>
+        <button class="btn-submit" onclick="handleSubmit()">Continue to Payment →</button>
       </div>
-      <div class="form-group">
-        <label>Partner's Email</label>
-        <input type="email" placeholder="jordan@email.com" id="partnerEmail" />
-      </div>
-      <div class="form-group">
-        <label>Your Email (to receive their answer)</label>
-        <input type="email" placeholder="alex@email.com" id="senderEmail" />
-      </div>
-      <div class="form-group">
-        <label>A Personal Message (optional)</label>
-        <textarea placeholder="Something sweet only they would understand…" id="message"></textarea>
-      </div>
-      <p class="form-note">💳 You'll be taken to a secure payment page after submitting.</p>
-      <button class="btn-submit" onclick="handleSubmit()">Continue to Payment →</button>
-    </div>
 
-    <!-- SUCCESS -->
-    <div class="success-state" id="successState">
-      <div class="success-icon">🌸</div>
-      <h4>You're all set!</h4>
-      <p>We've received your details. Your <strong id="styleConfirm">Midnight Garden</strong> Valentine's page will be delivered to <strong id="partnerEmailConfirm"></strong> within a few hours.<br><br>Keep an eye on your inbox — we'll notify you the moment they answer.</p>
+      <!-- SUCCESS -->
+      <div class="success-state" id="successState">
+        <div class="success-icon">🌸</div>
+        <h4>You're all set!</h4>
+        <p>We've received your details. Your <strong id="styleConfirm">Midnight Garden</strong> Valentine's page has been sent to <strong id="partnerEmailConfirm"></strong>.<br><br>Keep an eye on your inbox — we'll notify you the moment they answer.</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- TRUST -->
-<section class="section trust">
-  <div class="section-label">Why WhisperYes</div>
-  <h2 class="section-title">Moments that matter</h2>
-  <div class="trust-items">
-    <div class="trust-item">
-      <div class="icon">🔒</div>
-      <h4>Completely Private</h4>
-      <p>Your details are only used to build the page. No sharing, no selling, ever.</p>
-    </div>
-    <div class="trust-item">
-      <div class="icon">⚡</div>
-      <h4>Ready in Hours</h4>
-      <p>Submit before Feb 13 and your page is ready well before Valentine's Day.</p>
-    </div>
-    <div class="trust-item">
-      <div class="icon">💌</div>
-      <h4>Unique Every Time</h4>
-      <p>Every page is handcrafted — no templates, no cookie-cutter designs.</p>
-    </div>
-    <div class="trust-item">
-      <div class="icon">❤️</div>
-      <h4>Built with Care</h4>
-      <p>We genuinely believe in making love feel special and memorable.</p>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="logo">Whisper<em>Yes</em></div>
-  <p>© 2026 WhisperYes. All rights reserved. · Made with care for every couple.</p>
-</footer>
+  <!-- ... (keep trust and footer) ... -->
 
 <script>
 let selectedStyle = 'midnight';
@@ -672,6 +77,7 @@ function handleSubmit() {
   const partnerName = document.getElementById('partnerName').value.trim();
   const partnerEmail= document.getElementById('partnerEmail').value.trim();
   const senderEmail = document.getElementById('senderEmail').value.trim();
+  const message = document.getElementById('message').value.trim() || "From the very first moment I saw you, I knew there was something extraordinary about you. Every day with you feels like the most beautiful adventure. You make my ordinary moments feel like magic — and I don't want to spend this Valentine's Day with anyone else.";
 
   // Simple validation
   if (!senderName || !partnerName || !partnerEmail || !senderEmail) {
@@ -687,22 +93,74 @@ function handleSubmit() {
     return;
   }
 
-  // Show success (in production this would go to payment flow → backend)
-  document.getElementById('formBlock').style.display = 'none';
-  document.getElementById('partnerEmailConfirm').textContent = partnerEmail;
+  // Save data temporarily in localStorage (cleared after processing)
+  localStorage.setItem('whisperData', JSON.stringify({
+    senderName, partnerName, partnerEmail, senderEmail, message, selectedStyle
+  }));
 
-  // Style label map
-  const styleLabels = {
-    midnight: '🌙 Midnight Garden',
-    parisian: '🌸 Parisian Watercolor',
-    retro:    '❤️ Retro Valentine',
-    typewriter: '📜 Typewriter Letter',
-    constellation: '✨ Constellation'
-  };
-  document.getElementById('styleConfirm').textContent = styleLabels[selectedStyle];
-
-  document.getElementById('successState').classList.add('visible');
+  // Direct to payment (replace with your actual payment link, e.g., Stripe Checkout)
+  window.location.href = 'YOUR_PAYMENT_URL';  // e.g., 'https://buy.stripe.com/your-link?success_url=' + encodeURIComponent(window.location.origin + '/index.html?success=1')
 }
+
+// On page load, check if returning from successful payment
+window.addEventListener('load', function() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('success') === '1') {
+    const data = JSON.parse(localStorage.getItem('whisperData'));
+    if (data) {
+      // Map style to file
+      const styleMap = {
+        midnight: '1_midnight',
+        parisian: '2_parisian',
+        retro: '3_retro',
+        typewriter: '4_typewriter',
+        constellation: '5_constellation'
+      };
+      const valStyle = styleMap[data.selectedStyle];
+      const messageEnc = encodeURIComponent(data.message);
+      const valLink = `valentine_${valStyle}.html?sender=${encodeURIComponent(data.senderName)}&partner=${encodeURIComponent(data.partnerName)}&message=${messageEnc}&senderEmail=${encodeURIComponent(data.senderEmail)}`;
+      const fullLink = window.location.origin + '/' + valLink;
+
+      // Init EmailJS (replace with your User ID/Public Key)
+      emailjs.init('your_user_id');
+
+      // Send proposal email to partner
+      emailjs.send('your_service_id', 'TEMPLATE_ID_PROPOSAL', {
+        to_email: data.partnerEmail,
+        from_name: data.senderName,
+        partner_name: data.partnerName,
+        proposal_link: fullLink,
+        message: data.message
+      }).then(function() {
+        // Send confirmation to sender
+        emailjs.send('your_service_id', 'TEMPLATE_ID_CONFIRM', {
+          to_email: data.senderEmail,
+          from_name: data.senderName,
+          partner_name: data.partnerName,
+          proposal_link: fullLink
+        });
+
+        // Show success
+        document.getElementById('formBlock').style.display = 'none';
+        document.getElementById('partnerEmailConfirm').textContent = data.partnerEmail;
+        const styleLabels = {
+          midnight: '🌙 Midnight Garden',
+          parisian: '🌸 Parisian Watercolor',
+          retro:    '❤️ Retro Valentine',
+          typewriter: '📜 Typewriter Letter',
+          constellation: '✨ Constellation'
+        };
+        document.getElementById('styleConfirm').textContent = styleLabels[data.selectedStyle];
+        document.getElementById('successState').classList.add('visible');
+
+        // Clear temp data
+        localStorage.removeItem('whisperData');
+      }, function(error) {
+        alert('Error sending proposal: ' + JSON.stringify(error));
+      });
+    }
+  }
+});
 </script>
 </body>
 </html>
