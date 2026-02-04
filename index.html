@@ -952,6 +952,14 @@ function copyLink() {
     document.getElementById('create').style.display = 'block';
     updateStyleBadge();
 
+    // ── IMPORTANT: Populate the form fields with the saved data ──
+    document.getElementById('senderName').value   = data.senderName;
+    document.getElementById('partnerName').value  = data.partnerName;
+    document.getElementById('partnerEmail').value = data.partnerEmail;
+    if (data.message) {
+      document.getElementById('message').value = data.message;
+    }
+
     // Build link & send
     const link = buildLink(data);
     sendMail(data, link);
